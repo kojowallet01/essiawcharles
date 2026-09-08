@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essiaw Charles Jnr | Software Developer & Full-Stack Engineer</title>
+    <meta name="description" content="Portfolio of Essiaw Charles Jnr — Full-stack developer and creative technologist building modern web applications, real-time systems, and high-performance user interfaces.">
+    <meta name="keywords" content="Essiaw Charles Jnr, Software Developer, Full-Stack Engineer, Web Development, JavaScript, TypeScript, Next.js, Python, Ghana Developer">
+    <meta name="author" content="Essiaw Charles Jnr">
+    <meta name="theme-color" content="#002b36">
+    <link rel="canonical" href="https://kojowallet01.github.io/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kojowallet01.github.io/">
+    <meta property="og:title" content="Essiaw Charles Jnr | Software Developer & Full-Stack Engineer">
+    <meta property="og:description" content="Portfolio of Essiaw Charles Jnr — Full-stack developer building high-velocity web apps, real-time POS systems, and modern digital architectures.">
+    <meta property="og:image" content="https://kojowallet01.github.io/og-card.png">
+    <meta property="og:image:secure_url" content="https://kojowallet01.github.io/og-card.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Essiaw Charles Jnr - Software Developer & Full-Stack Systems Engineer">
+    <meta property="og:site_name" content="Essiaw Charles Jnr Portfolio">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Essiaw Charles Jnr | Software Developer & Full-Stack Engineer">
+    <meta name="twitter:description" content="Explore real-world projects, live systems, and credentials of Essiaw Charles Jnr — Full-Stack Developer.">
+    <meta name="twitter:image" content="https://kojowallet01.github.io/og-card.png">
+    <meta name="twitter:image:alt" content="Essiaw Charles Jnr - Full-Stack Developer Social Preview Card">
+
+    <link rel="icon" type="image/jpeg" href="profile.jpg">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Schema.org JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Essiaw Charles Jnr",
+      "alternateName": "Charles Essiaw",
+      "jobTitle": "Software Developer & Full-Stack Engineer",
+      "url": "https://kojowallet01.github.io/",
+      "image": "profile.jpg",
+      "sameAs": [
+        "https://github.com/kojowallet01",
+        "https://www.linkedin.com/in/charles-essiaw-92794b253/",
+        "https://www.facebook.com/charles.essiaw/",
+        "https://wa.me/233537984448"
+      ],
+      "knowsAbout": [
+        "JavaScript",
+        "TypeScript",
+        "Python",
+        "Next.js",
+        "PostgreSQL",
+        "Docker",
+        "Full-Stack Development",
+        "UI/UX Design"
+      ]
+    }
+    </script>
+
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme');
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+            if (saved === 'light' || (!saved && prefersLight)) {
+                document.documentElement.classList.add('light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Scroll Progress Bar -->
+    <div class="scroll-progress-container" aria-hidden="true">
+        <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">EC</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#experience" class="nav-link">Journey</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="resume.html" class="nav-link nav-resume-btn" target="_blank"><i class="fas fa-file-alt"></i> Resume</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <canvas id="heroCanvas" class="hero-canvas"></canvas>
+            <div class="hero-glow hero-glow-1"></div>
+            <div class="hero-glow hero-glow-2"></div>
+            <div class="hero-glow hero-glow-3"></div>
+            <div class="hero-grid-pattern"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content fade-in">
+                <div class="hero-badges-wrap">
+                    <div class="hero-badge hero-badge-status">
+                        <span class="status-dot"></span>
+                        <span>Available for Projects & Full-Time</span>
+                    </div>
+                    <div class="hero-badge hero-badge-location">
+                        <i class="fas fa-location-dot"></i>
+                        <span>Accra, Ghana • Remote</span>
+                    </div>
+                </div>
+
+                <h1 class="hero-name">
+                    Essiaw Charles <span class="accent">Jnr</span>
+                </h1>
+
+                <div class="hero-role-wrapper">
+                    <span class="hero-role-prefix">I engineer</span>
+                    <span class="hero-role-accent" id="heroTypedRole">high-impact web apps</span><span class="hero-cursor" aria-hidden="true"></span>
+                </div>
+
+                <p class="hero-description">
+                    Full-stack software developer crafting lightning-fast, high-converting digital systems. Specializing in modern web applications, real-time user experiences, and clean UI engineering.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary btn-shine">
+                        <span>Explore Work</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="https://wa.me/233537984448" target="_blank" rel="noopener" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Chat on WhatsApp</span>
+                    </a>
+                    <button type="button" class="btn btn-outline btn-copy-email" id="copyEmailBtn" data-email="charlesessiawjnr@gmail.com" aria-label="Copy Email Address">
+                        <i class="fas fa-envelope"></i>
+                        <span class="copy-btn-text">Copy Email</span>
+                        <span class="copy-tooltip" id="copyTooltip">Copied! ✓</span>
+                    </button>
+                    <a href="resume.pdf" class="btn btn-outline" id="resumeBtn" download="Essiaw_Charles_Jnr_Resume.pdf" title="Download ATS Resume (PDF)">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Resume (PDF)</span>
+                    </a>
+                </div>
+
+                <div class="hero-metrics" aria-label="Key Achievements and Highlights">
+                    <div class="hero-metric-item">
+                        <span class="metric-num">5+</span>
+                        <span class="metric-label">Shipped Systems</span>
+                    </div>
+                    <div class="hero-metric-divider" aria-hidden="true"></div>
+                    <div class="hero-metric-item">
+                        <span class="metric-num">5.0 ★</span>
+                        <span class="metric-label">Client Rating</span>
+                    </div>
+                    <div class="hero-metric-divider" aria-hidden="true"></div>
+                    <div class="hero-metric-item">
+                        <span class="metric-num">100%</span>
+                        <span class="metric-label">Code Reliability</span>
+                    </div>
+                    <div class="hero-metric-divider" aria-hidden="true"></div>
+                    <div class="hero-metric-item">
+                        <span class="metric-num">&lt; 2h</span>
+                        <span class="metric-label">Quick Response</span>
+                    </div>
+                </div>
+
+                <div class="hero-socials">
+                    <span class="hero-socials-label">Connect:</span>
+                    <a href="https://github.com/kojowallet01" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/charles-essiaw-92794b253/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/charles.essiaw/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/233537984448" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="hero-visual fade-in">
+                <div class="hero-visual-container">
+                    <div class="hero-card-glow"></div>
+                    <div class="hero-avatar-card" id="heroAvatarCard">
+                        <div class="border-beam" aria-hidden="true"></div>
+                        <div class="hero-avatar-img-wrap">
+                            <img src="profile.jpg" alt="Essiaw Charles Jnr" class="hero-avatar-img" width="400" height="400" fetchpriority="high" decoding="async">
+                            <div class="avatar-gradient-overlay" aria-hidden="true"></div>
+                        </div>
+
+                        <!-- Floating Badges -->
+                        <div class="hero-floating-chip chip-rating" data-chip="rating">
+                            <div class="chip-icon"><i class="fab fa-google"></i></div>
+                            <div>
+                                <div class="chip-stars">★★★★★</div>
+                                <span class="chip-label">5.0 Client Rating</span>
+                            </div>
+                        </div>
+
+                        <div class="hero-floating-chip chip-experience" data-chip="experience">
+                            <div class="chip-icon chip-icon-purple"><i class="fas fa-code"></i></div>
+                            <div>
+                                <span class="chip-val">5+ Shipped Projects</span>
+                                <span class="chip-label">Full-Stack & POS</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <a href="#about" aria-label="Scroll to About">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <span class="scroll-text">Scroll Down</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title fade-in">About Me</h2>
+            <div class="about-grid fade-in">
+                <div class="about-image">
+                    <div class="about-img-wrapper">
+                        <img src="profile.jpg" alt="Essiaw Charles Jnr" class="about-img" loading="lazy">
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p>I'm a self-taught creative professional and aspiring software developer who loves building digital experiences. I'm currently growing my skills by learning through YouTube, online resources, and building real projects with the help of AI coding agents.</p>
+                    <p>I'm honest about where I am in my journey — still learning and improving every day. But what I lack in years of experience, I make up for with eagerness, curiosity, and a genuine willingness to work hard on any project that comes my way.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-label">Projects Built</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2</span>
+                            <span class="stat-label">Languages Learned</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Willing to Learn</span>
+                        </div>
+                    </div>
+                    <div class="skills-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">AI-Assisted Coding</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="skills">
+        <div class="container">
+            <h2 class="section-title fade-in">My Skills</h2>
+            <div class="skills-grid fade-in">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-code"></i></div>
+                    <h3>Languages</h3>
+                    <p>JavaScript, TypeScript, Python, HTML & CSS</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-database"></i></div>
+                    <h3>Databases & Tools</h3>
+                    <p>PostgreSQL, Docker, Git, Version Control</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI-Assisted Development</h3>
+                    <p>Leveraging AI coding agents to build and improve projects faster and smarter</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>Fast Learner</h3>
+                    <p>Quick to pick up new technologies and frameworks — always learning and adapting</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt" id="services">
+        <div class="container">
+            <h2 class="section-title fade-in">Services</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fas fa-globe"></i></div>
+                    <h3>Website Development</h3>
+                    <p>Modern, fast, and responsive websites built from scratch or revamped to fit your needs.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Web Applications</h3>
+                    <p>Interactive web apps and tools — from landing pages to full-featured business applications.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                    <h3>UI Design</h3>
+                    <p>Clean, user-friendly interfaces designed with a creative eye and attention to detail.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Project Collaboration</h3>
+                    <p>Open to working on your projects — I communicate clearly, learn fast, and get things done.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt" id="experience">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-pill-tag"><i class="fas fa-route"></i> Career Milestones</span>
+                <h2 class="section-title">Engineering Journey</h2>
+                <p class="section-subtitle">From autonomous self-taught deep work to architecting mission-critical full-stack systems and high-converting commercial applications.</p>
+            </div>
+
+            <div class="journey-timeline">
+                <!-- Milestone 1 -->
+                <div class="journey-item fade-in">
+                    <div class="journey-track-node">
+                        <div class="journey-dot active">
+                            <span class="journey-dot-inner"></span>
+                        </div>
+                        <div class="journey-line"></div>
+                    </div>
+                    <div class="journey-card">
+                        <div class="journey-card-glow"></div>
+                        <div class="journey-card-header">
+                            <div class="journey-meta-row">
+                                <span class="journey-period"><i class="fas fa-calendar-check"></i> 2024 — Present</span>
+                                <span class="journey-badge current"><span class="pulse-dot"></span> Active Focus</span>
+                            </div>
+                            <h3 class="journey-role">Full-Stack Systems & Production Architecture</h3>
+                            <span class="journey-context">Independent Developer & Systems Engineer</span>
+                        </div>
+                        <p class="journey-desc">
+                            Architecting, building, and deploying mission-critical web applications with end-to-end reliability. Specializing in sub-second real-time websocket synchronization, cloud PostgreSQL databases, and modern responsive user interfaces.
+                        </p>
+                        
+                        <div class="journey-impact-box">
+                            <span class="journey-impact-title"><i class="fas fa-shield-halved"></i> Key Engineering Deliverables</span>
+                            <ul class="journey-impact-list">
+                                <li><i class="fas fa-check"></i> <span><strong>Sweetbite POS & KDS</strong>: Engineered cloud restaurant Point of Sale and Kitchen Display System with sub-second order pipelines and live Supabase events.</span></li>
+                                <li><i class="fas fa-check"></i> <span><strong>Emergency Response System</strong>: Developed dispatch command software with instant voice notes and live Ghana GPS coordinate telemetry.</span></li>
+                                <li><i class="fas fa-check"></i> <span><strong>Patron Housing Access</strong>: Designed secure QR-code access control system with cryptographic visitor passes and Docker containerization.</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="journey-tech-row">
+                            <span class="journey-tech-tag">Next.js 14</span>
+                            <span class="journey-tech-tag">TypeScript</span>
+                            <span class="journey-tech-tag">Supabase</span>
+                            <span class="journey-tech-tag">PostgreSQL</span>
+                            <span class="journey-tech-tag">Python</span>
+                            <span class="journey-tech-tag">Docker</span>
+                            <span class="journey-tech-tag">Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 2 -->
+                <div class="journey-item fade-in">
+                    <div class="journey-track-node">
+                        <div class="journey-dot">
+                            <span class="journey-dot-inner"></span>
+                        </div>
+                        <div class="journey-line"></div>
+                    </div>
+                    <div class="journey-card">
+                        <div class="journey-card-header">
+                            <div class="journey-meta-row">
+                                <span class="journey-period"><i class="fas fa-calendar"></i> 2023 — 2024</span>
+                                <span class="journey-badge shipped"><i class="fas fa-award"></i> Shipped Milestone</span>
+                            </div>
+                            <h3 class="journey-role">Client Solutions & High-Impact Web Engineering</h3>
+                            <span class="journey-context">Commercial Projects & Brand Deployments (BizConnect, Kelrose Tours)</span>
+                        </div>
+                        <p class="journey-desc">
+                            Partnered directly with business owners and clients to design, revamp, and launch high-performance digital platforms. Focused on high-speed page load optimization, corporate branding, and conversion-centered design.
+                        </p>
+                        
+                        <div class="journey-impact-box">
+                            <span class="journey-impact-title"><i class="fas fa-chart-line"></i> Commercial & Technical Impact</span>
+                            <ul class="journey-impact-list">
+                                <li><i class="fas fa-check"></i> <span><strong>BizConnect Technologies</strong>: Shipped corporate enterprise portal with 100% Core Web Vitals score and zero-bloat architecture.</span></li>
+                                <li><i class="fas fa-check"></i> <span><strong>Kelrose Tours</strong>: Delivered dynamic travel platform with curated Ghana destination guides and transparent package booking.</span></li>
+                                <li><i class="fas fa-check"></i> <span><strong>5.0 Google Verified Rating</strong>: Maintained an unblemished 5.0 client rating for delivery speed, clear communication, and dependable code.</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="journey-tech-row">
+                            <span class="journey-tech-tag">JavaScript (ES6+)</span>
+                            <span class="journey-tech-tag">TypeScript</span>
+                            <span class="journey-tech-tag">Modern UI / CSS</span>
+                            <span class="journey-tech-tag">REST APIs</span>
+                            <span class="journey-tech-tag">Performance Tuning</span>
+                            <span class="journey-tech-tag">SEO Architecture</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 3 -->
+                <div class="journey-item fade-in">
+                    <div class="journey-track-node">
+                        <div class="journey-dot">
+                            <span class="journey-dot-inner"></span>
+                        </div>
+                    </div>
+                    <div class="journey-card">
+                        <div class="journey-card-header">
+                            <div class="journey-meta-row">
+                                <span class="journey-period"><i class="fas fa-graduation-cap"></i> 2022 — 2023</span>
+                                <span class="journey-badge foundation"><i class="fas fa-cubes"></i> Core Foundation</span>
+                            </div>
+                            <h3 class="journey-role">The Intensive Deep-Dive & AI-Augmented Mastery</h3>
+                            <span class="journey-context">Autonomous Engineering Apprenticeship & Hands-on Coding</span>
+                        </div>
+                        <p class="journey-desc">
+                            Dedicated 1,500+ hours to intensive, deliberate programming practice. Mastered core software engineering principles, algorithms, modern asynchronous JavaScript, Python backend development, and containerization.
+                        </p>
+                        
+                        <div class="journey-impact-box">
+                            <span class="journey-impact-title"><i class="fas fa-microchip"></i> Engineering Foundation</span>
+                            <ul class="journey-impact-list">
+                                <li><i class="fas fa-check"></i> <span><strong>AI-Accelerated Workflow</strong>: Pioneered rapid debugging, refactoring, and automated test prototyping with modern AI coding agents.</span></li>
+                                <li><i class="fas fa-check"></i> <span><strong>Systems Literacy</strong>: Deep-dived into relational schema design, API security, version control best practices, and clean architecture.</span></li>
+                                <li><i class="fas fa-check"></i> <span><strong>Rapid Execution Habit</strong>: Built dozens of functional experiments, converting theoretical knowledge into real, shipping code.</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="journey-tech-row">
+                            <span class="journey-tech-tag">JavaScript</span>
+                            <span class="journey-tech-tag">Python</span>
+                            <span class="journey-tech-tag">HTML5 &amp; CSS3</span>
+                            <span class="journey-tech-tag">Git / GitHub</span>
+                            <span class="journey-tech-tag">SQL</span>
+                            <span class="journey-tech-tag">AI Coding Agents</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">Real-world systems, client web applications, and digital tools built with clean architecture.</p>
+            </div>
+
+            <!-- Project Category Filter Buttons -->
+            <div class="project-filters fade-in" role="tablist" aria-label="Filter projects by type">
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+                    <i class="fas fa-layer-group"></i> All Projects
+                </button>
+                <button class="filter-btn" data-filter="fullstack" role="tab" aria-selected="false">
+                    <i class="fas fa-server"></i> Full-Stack
+                </button>
+                <button class="filter-btn" data-filter="webapps" role="tab" aria-selected="false">
+                    <i class="fas fa-laptop-code"></i> Web Apps
+                </button>
+                <button class="filter-btn" data-filter="websites" role="tab" aria-selected="false">
+                    <i class="fas fa-globe"></i> Websites
+                </button>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Sweetbite POS -->
+                <div data-url="https://github.com/kojowallet01/Sweetbite" data-category="fullstack" data-project-id="sweetbite" class="project-card fade-in">
+                    <div class="project-image">
+                        <div class="project-browser-bar">
+                            <div class="browser-dots">
+                                <span class="dot dot-red"></span>
+                                <span class="dot dot-yellow"></span>
+                                <span class="dot dot-green"></span>
+                            </div>
+                            <span class="browser-url">sweetbite.pos/kds</span>
+                        </div>
+                        <div class="project-thumb-wrap">
+                            <img src="assets/projects/sweetbite.jpg" alt="Sweetbite Food POS & KDS Interface" class="project-img" loading="lazy">
+                            <div class="mockup-preview-badge"><i class="fas fa-bolt"></i> Realtime Sync</div>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <button type="button" class="project-link btn-case-study" data-project-id="sweetbite" aria-label="View Sweetbite Case Study"><i class="fas fa-circle-info"></i> <span>Case Study</span></button>
+                                <a href="https://github.com/kojowallet01/Sweetbite" target="_blank" rel="noopener" class="project-link" aria-label="View Sweetbite Source Code"><i class="fab fa-github"></i> <span>Code</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-badge-row">
+                            <span class="project-category-tag">Full-Stack</span>
+                            <span class="project-status-pill">Active</span>
+                        </div>
+                        <h3>Sweetbite Food POS & KDS</h3>
+                        <p>Real-time restaurant Point of Sale and Kitchen Display System with live Supabase order sync, audio alerts, and menu manager.</p>
+                        <div class="project-tech">
+                            <span>Next.js</span>
+                            <span>TypeScript</span>
+                            <span>Supabase</span>
+                            <span>Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Response System -->
+                <div data-url="https://emergency-response-system-flax.vercel.app" data-category="fullstack webapps" data-project-id="emergency" class="project-card fade-in">
+                    <div class="project-image">
+                        <div class="project-browser-bar">
+                            <div class="browser-dots">
+                                <span class="dot dot-red"></span>
+                                <span class="dot dot-yellow"></span>
+                                <span class="dot dot-green"></span>
+                            </div>
+                            <span class="browser-url">emergency-response-gh.app</span>
+                        </div>
+                        <div class="project-thumb-wrap">
+                            <img src="assets/projects/emergency.jpg" alt="Emergency Response System Interface" class="project-img" loading="lazy">
+                            <div class="mockup-preview-badge"><i class="fas fa-satellite"></i> Live GPS</div>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <button type="button" class="project-link btn-case-study" data-project-id="emergency" aria-label="View Emergency Response Case Study"><i class="fas fa-circle-info"></i> <span>Case Study</span></button>
+                                <a href="https://emergency-response-system-flax.vercel.app" target="_blank" rel="noopener" class="project-link demo" aria-label="Emergency Response Live Demo"><i class="fas fa-external-link-alt"></i> <span>Demo</span></a>
+                                <a href="https://github.com/kojowallet01/emergency-response-system" target="_blank" rel="noopener" class="project-link" aria-label="Emergency Response Source Code"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-badge-row">
+                            <span class="project-category-tag">Web App & GPS</span>
+                            <span class="project-status-pill">Live Demo</span>
+                        </div>
+                        <h3>Emergency Response System</h3>
+                        <p>Real-time emergency dispatch and response system for Ghana featuring instant voice messaging and live coordinates tracking.</p>
+                        <div class="project-tech">
+                            <span>JavaScript</span>
+                            <span>TypeScript</span>
+                            <span>PostgreSQL</span>
+                            <span>Python</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patron Housing Access -->
+                <div data-url="https://patron-housing-access.onrender.com/" data-category="webapps" data-project-id="patron" class="project-card fade-in">
+                    <div class="project-image">
+                        <div class="project-browser-bar">
+                            <div class="browser-dots">
+                                <span class="dot dot-red"></span>
+                                <span class="dot dot-yellow"></span>
+                                <span class="dot dot-green"></span>
+                            </div>
+                            <span class="browser-url">patron-housing.onrender.com</span>
+                        </div>
+                        <div class="project-thumb-wrap">
+                            <img src="assets/projects/patron.jpg" alt="Patron Housing Access Interface" class="project-img" loading="lazy">
+                            <div class="mockup-preview-badge"><i class="fas fa-qrcode"></i> QR Pass</div>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <button type="button" class="project-link btn-case-study" data-project-id="patron" aria-label="View Patron Housing Case Study"><i class="fas fa-circle-info"></i> <span>Case Study</span></button>
+                                <a href="https://patron-housing-access.onrender.com/" target="_blank" rel="noopener" class="project-link demo" aria-label="Patron Housing Live Demo"><i class="fas fa-external-link-alt"></i> <span>Demo</span></a>
+                                <a href="https://github.com/kojowallet01/patron-housing-access" target="_blank" rel="noopener" class="project-link" aria-label="Patron Housing Source Code"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-badge-row">
+                            <span class="project-category-tag">Access System</span>
+                            <span class="project-status-pill">Live Demo</span>
+                        </div>
+                        <h3>Patron Housing Access</h3>
+                        <p>QR-based access management system for Patron Housing, streamlining secure entry, visitor authentication, and logging.</p>
+                        <div class="project-tech">
+                            <span>JavaScript</span>
+                            <span>CSS</span>
+                            <span>Docker</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BizConnect Website -->
+                <div data-url="https://bizconnecttechnologies.com" data-category="websites" data-project-id="bizconnect" class="project-card fade-in">
+                    <div class="project-image">
+                        <div class="project-browser-bar">
+                            <div class="browser-dots">
+                                <span class="dot dot-red"></span>
+                                <span class="dot dot-yellow"></span>
+                                <span class="dot dot-green"></span>
+                            </div>
+                            <span class="browser-url">bizconnecttechnologies.com</span>
+                        </div>
+                        <div class="project-thumb-wrap">
+                            <img src="assets/projects/bizconnect.svg" alt="BizConnect Website Platform" class="project-img" loading="lazy">
+                            <div class="mockup-preview-badge"><i class="fas fa-check-circle"></i> Production</div>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <button type="button" class="project-link btn-case-study" data-project-id="bizconnect" aria-label="View BizConnect Case Study"><i class="fas fa-circle-info"></i> <span>Case Study</span></button>
+                                <a href="https://bizconnecttechnologies.com" target="_blank" rel="noopener" class="project-link demo" aria-label="BizConnect Live Demo"><i class="fas fa-external-link-alt"></i> <span>Demo</span></a>
+                                <a href="https://github.com/kojowallet01/bizconnect-website" target="_blank" rel="noopener" class="project-link" aria-label="BizConnect Source Code"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-badge-row">
+                            <span class="project-category-tag">Corporate Web</span>
+                            <span class="project-status-pill">Client Project</span>
+                        </div>
+                        <h3>BizConnect Website</h3>
+                        <p>Modern business platform built with TypeScript, featuring high-speed load times, crisp aesthetics, and corporate service modules.</p>
+                        <div class="project-tech">
+                            <span>TypeScript</span>
+                            <span>CSS</span>
+                            <span>HTML</span>
+                            <span>Python</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kelrose Tours -->
+                <div data-url="https://github.com/kojowallet01/kelrose" data-category="websites" data-project-id="kelrose" class="project-card fade-in">
+                    <div class="project-image">
+                        <div class="project-browser-bar">
+                            <div class="browser-dots">
+                                <span class="dot dot-red"></span>
+                                <span class="dot dot-yellow"></span>
+                                <span class="dot dot-green"></span>
+                            </div>
+                            <span class="browser-url">kelrosetours.com</span>
+                        </div>
+                        <div class="project-thumb-wrap">
+                            <img src="assets/projects/kelrose.svg" alt="Kelrose Tours & Travel Interface" class="project-img" loading="lazy">
+                            <div class="mockup-preview-badge"><i class="fas fa-compass"></i> Tourism</div>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <button type="button" class="project-link btn-case-study" data-project-id="kelrose" aria-label="View Kelrose Case Study"><i class="fas fa-circle-info"></i> <span>Case Study</span></button>
+                                <a href="https://github.com/kojowallet01/kelrose" target="_blank" rel="noopener" class="project-link" aria-label="Kelrose Source Code"><i class="fab fa-github"></i> <span>Code</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-badge-row">
+                            <span class="project-category-tag">Travel & Tourism</span>
+                            <span class="project-status-pill">Open Source</span>
+                        </div>
+                        <h3>Kelrose Tours</h3>
+                        <p>Tour and travel website for exploring Ghana — featuring curated destinations, dynamic packages, booking forms, and client reviews.</p>
+                        <div class="project-tech">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="testimonials">
+        <div class="container">
+            <h2 class="section-title fade-in">Client Reviews</h2>
+            <div class="google-reviews-badge fade-in">
+                <i class="fab fa-google google-icon"></i>
+                <span class="score">5.0</span>
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <span class="text">Google Business Reviews</span>
+                <a href="https://g.page/r/CXcZchUIhYAzEBM/review" target="_blank" rel="noopener" class="review-btn">
+                    Leave a Review <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-card-header">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <span class="google-verified-tag"><i class="fab fa-google"></i> Verified Review</span>
+                    </div>
+                    <p class="testimonial-text">"Charles gets the job done! He built our website, set up our digital presence, and delivered with speed and professionalism — no confusing tech talk. Our brand now looks truly premium online and we're getting more inquiries. Highly recommended to any business looking to level up digitally."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">NH</div>
+                        <div>
+                            <h4><a href="https://www.google.com/maps/contrib/108853375199854942579/reviews?hl=en-GB" target="_blank" rel="noopener">Nancy Hackman Ofosuwaa</a></h4>
+                            <span>Client • Google Review</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-card-header">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <span class="google-verified-tag"><i class="fab fa-google"></i> Verified Review</span>
+                    </div>
+                    <p class="testimonial-text">"If you need exceptional results and top-tier execution, Charles is the professional to work with. Reliable, proactive, and committed to delivering high-quality digital solutions every time."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">EA</div>
+                        <div>
+                            <h4><a href="https://www.google.com/maps/contrib/117444871352711530665/reviews?hl=en-GB" target="_blank" rel="noopener">Ellis Anaafi</a></h4>
+                            <span>Client • Google Review</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-card-header">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <span class="google-verified-tag"><i class="fab fa-google"></i> Verified Review</span>
+                    </div>
+                    <p class="testimonial-text">"I've known Charles and his services for a long time. He is top-notch when it comes to web design, development, and IT solutions. Excellent service, trustworthy work ethic, and dependable execution."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">EH</div>
+                        <div>
+                            <h4><a href="https://www.google.com/maps/contrib/103697673328924304920/reviews?hl=en-GB" target="_blank" rel="noopener">Emmanuel Lartey Hor</a></h4>
+                            <span>Client • Google Review</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt" id="faq">
+        <div class="container">
+            <h2 class="section-title fade-in">Frequently Asked Questions</h2>
+            <div class="faq-list fade-in">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What kind of projects do you work on?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Websites, web applications, and tools — from simple landing pages to more complex business systems. If you have a project in mind, I'm open to discussing it.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How do we get started on a project?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Reach out through the contact form and tell me about your project. We'll discuss your goals, and I'll work with you to bring your idea to life.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How long will my project take?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>It depends on the scope. Simple sites can be done quickly, while larger applications take more time. I'll give you a clear timeline once I understand your project.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can you help me update an existing website?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes — I can improve, redesign, or add features to existing sites and applications. Reach out and let me know what you'd like changed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt" id="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Get In Touch</h2>
+            <div class="contact-wrapper fade-in">
+                <div class="contact-info">
+                    <p>I'm always open to new opportunities, collaborations, and interesting conversations. Feel free to reach out!</p>
+                    <a href="https://wa.me/233537984448" target="_blank" rel="noopener" class="contact-cta-bar">
+                        <div class="cta-bar-left">
+                            <div class="cta-whatsapp-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="cta-bar-text">
+                                <span class="cta-title">Click to Contact Me</span>
+                                <span class="cta-sub">Chat with me directly on WhatsApp</span>
+                            </div>
+                        </div>
+                        <div class="cta-bar-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                    <div class="contact-socials">
+                        <a href="https://github.com/kojowallet01" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/charles-essiaw-92794b253/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.facebook.com/charles.essiaw/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://wa.me/233537984448" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+                    <!-- Web3Forms Integration -->
+                    <!-- Paste your free key from https://web3forms.com below to receive messages straight to your inbox -->
+                    <input type="hidden" name="access_key" id="web3FormsAccessKey" value="YOUR_WEB3FORMS_ACCESS_KEY">
+                    <input type="hidden" name="subject" value="New Portfolio Inquiry - Essiaw Charles Jnr">
+                    <input type="hidden" name="from_name" value="Charles Portfolio Site">
+                    <!-- Honeypot spam defense -->
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                    <div class="form-group">
+                        <label for="name" class="sr-only">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="sr-only">Your Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="sr-only">Your Message</label>
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full" id="contactSubmitBtn">
+                        <span class="btn-text">Send Message</span>
+                        <i class="fas fa-paper-plane btn-icon"></i>
+                    </button>
+                    <div class="form-status-msg" id="formStatusMsg" aria-live="polite"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Essiaw Charles Jnr. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Project Case Study Modal Dialog -->
+    <div class="project-modal-backdrop" id="projectModal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="project-modal-card">
+            <button class="project-modal-close" id="projectModalClose" aria-label="Close Case Study">
+                <i class="fas fa-xmark"></i>
+            </button>
+            <div class="project-modal-content" id="projectModalContent">
+                <!-- Injected dynamically via script.js -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
