@@ -137,7 +137,7 @@ def create_og_card():
 
     # Footer Branding Bar
     foot_y = 475
-    draw.text((left_x, foot_y), "https://kojowallet01.github.io", fill=(42, 161, 152, 255), font=font_url)
+    draw.text((left_x, foot_y), "https://kojowallet01.github.io/essiawcharles", fill=(42, 161, 152, 255), font=font_url)
     draw.text((left_x, foot_y + 36), "GitHub: github.com/kojowallet01   |   Email: charlesessiawjnr@gmail.com", fill=(140, 170, 180, 255), font=font_stats_lbl)
 
     # Right Column: Avatar centered on face & upper body

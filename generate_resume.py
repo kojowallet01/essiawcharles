@@ -88,7 +88,7 @@ def build_pdf():
 
     # Links Bar
     links = [
-        ("Portfolio: kojowallet01.github.io", "https://kojowallet01.github.io/"),
+        ("Portfolio: kojowallet01.github.io/essiawcharles", "https://kojowallet01.github.io/essiawcharles/"),
         ("GitHub: github.com/kojowallet01", "https://github.com/kojowallet01"),
         ("LinkedIn: charles-essiaw", "https://www.linkedin.com/in/charles-essiaw-92794b253/")
     ]
