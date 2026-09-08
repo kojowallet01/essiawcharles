@@ -2,7 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1200, user-scalable=yes">
+    <script>
+        (function() {
+            function adjustDesktopViewport() {
+                var targetWidth = 1200;
+                var screenWidth = window.screen.width || targetWidth;
+                if (screenWidth < targetWidth) {
+                    var scale = Number((screenWidth / targetWidth).toFixed(4));
+                    var meta = document.querySelector('meta[name="viewport"]');
+                    if (meta) {
+                        meta.setAttribute('content', 'width=' + targetWidth + ', initial-scale=' + scale + ', minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes');
+                    }
+                }
+            }
+            adjustDesktopViewport();
+            window.addEventListener('resize', adjustDesktopViewport);
+            window.addEventListener('orientationchange', function() {
+                setTimeout(adjustDesktopViewport, 150);
+            });
+        })();
+    </script>
     <title>Essiaw Charles Jnr | Software Developer & Full-Stack Engineer</title>
     <meta name="description" content="Portfolio of Essiaw Charles Jnr — Full-stack developer and creative technologist building modern web applications, real-time systems, and high-performance user interfaces.">
     <meta name="keywords" content="Essiaw Charles Jnr, Software Developer, Full-Stack Engineer, Web Development, JavaScript, TypeScript, Next.js, Python, Ghana Developer">

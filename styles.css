@@ -120,12 +120,6 @@ html.light .theme-toggle .fa-moon {
     display: none;
 }
 
-/* Mobile: keep resume button visible, adjust nav */
-@media (max-width: 768px) {
-    .theme-toggle {
-        margin-right: 8px;
-    }
-}
 
 /* Resume download button */
 #resumeBtn {
@@ -154,6 +148,7 @@ html.light #resumeBtn:hover {
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
+    min-width: 1200px;
 }
 
 body {
@@ -161,13 +156,16 @@ body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: auto;
+    min-width: 1200px;
+    width: 100%;
 }
 
 .container {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 24px;
+    width: 100%;
 }
 
 /* Navbar */
@@ -176,6 +174,8 @@ body {
     top: 0;
     left: 0;
     right: 0;
+    min-width: 1200px;
+    width: 100%;
     z-index: 1000;
     padding: 16px 0;
     transition: var(--transition);
@@ -1238,12 +1238,6 @@ html.light .about-img-wrapper::after {
     position: relative;
 }
 
-@media (max-width: 640px) {
-    .journey-item {
-        grid-template-columns: 32px 1fr;
-        gap: 14px;
-    }
-}
 
 .journey-track-node {
     display: flex;
@@ -2152,277 +2146,43 @@ html.light .btn-case-study:hover {
     }
 }
 
-/* Responsive styles for Hero */
-@media (max-width: 968px) {
-    .hero {
-        padding: 115px 20px 60px;
-        min-height: auto;
-    }
-
-    .hero-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 48px;
-    }
-
-    .hero-content {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .hero-badges-wrap {
-        justify-content: center;
-    }
-
-    .hero-role-wrapper {
-        justify-content: center;
-    }
-
-    .hero-description {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .hero-buttons {
-        justify-content: center;
-    }
-
-    .hero-metrics {
-        justify-content: center;
-    }
-
-    .hero-socials {
-        justify-content: center;
-    }
-
-    .hero-avatar-card {
-        max-width: 320px;
-        margin: 0 auto;
-    }
-
-    .hero-terminal-card {
-        max-width: 350px;
-    }
+/* ==========================================================================
+   Desktop Site Everywhere - Universal 1200px Viewport Integrity
+   ========================================================================== */
+.hero-container {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
 }
 
-@media (max-width: 580px) {
-    .hero {
-        padding: 100px 16px 50px;
-    }
-
-    .hero-badges-wrap {
-        gap: 8px;
-    }
-
-    .hero-badge {
-        font-size: 0.76rem;
-        padding: 6px 13px;
-    }
-
-    .hero-buttons {
-        width: 100%;
-        gap: 10px;
-    }
-
-    .hero-buttons .btn {
-        flex: 1 1 calc(50% - 10px);
-        justify-content: center;
-        padding: 11px 16px;
-        font-size: 0.88rem;
-    }
-
-    .hero-metrics {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-        width: 100%;
-        padding: 14px 16px;
-    }
-
-    .hero-metric-divider {
-        display: none;
-    }
-
-    .hero-metric-item {
-        padding: 0 4px;
-        align-items: center;
-        text-align: center;
-    }
-
-    .chip-rating {
-        right: -8px;
-        top: 12px;
-        padding: 8px 12px;
-    }
-
-    .chip-experience {
-        left: -8px;
-        bottom: 16px;
-        padding: 8px 12px;
-    }
-
-    .chip-tech {
-        display: none;
-    }
-
-    .hero-terminal-card {
-        margin-top: -10px;
-    }
-
-    .terminal-body {
-        font-size: 0.72rem;
-        padding: 12px 14px;
-    }
+.about-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 50px;
+    align-items: center;
 }
 
-/* Mobile Navigation & Responsive Overhaul */
-@media (max-width: 768px) {
-    .nav-toggle {
-        display: flex;
-    }
-
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: min(320px, 85vw);
-        height: 100vh;
-        height: 100dvh;
-        background: rgba(0, 43, 54, 0.96);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        flex-direction: column;
-        padding: 95px 24px 40px;
-        gap: 6px;
-        transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        border-left: 1px solid rgba(147, 197, 253, 0.12);
-        box-shadow: -12px 0 40px rgba(0, 27, 34, 0.6);
-        z-index: 1001;
-        overflow-y: auto;
-    }
-
-    html.light .nav-menu {
-        background: rgba(255, 255, 255, 0.95);
-        border-left: 1px solid rgba(0, 0, 0, 0.08);
-        box-shadow: -12px 0 40px rgba(0, 0, 0, 0.12);
-    }
-
-    .nav-menu.open {
-        right: 0;
-    }
-
-    .nav-link {
-        padding: 12px 18px;
-        font-size: 1rem;
-        border-radius: var(--radius-sm);
-        display: flex;
-        align-items: center;
-    }
-
-    .hero-avatar-card {
-        max-width: 290px;
-    }
-
-    .chip-rating {
-        right: -10px;
-        top: 15px;
-    }
-
-    .chip-experience {
-        left: -10px;
-        bottom: 15px;
-    }
-
-    .about-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .about-image {
-        max-width: 220px;
-        margin: 0 auto;
-    }
-
-    .about-stats {
-        justify-content: center;
-        gap: 20px;
-    }
-
-    .skills-tags {
-        justify-content: center;
-    }
-
-    .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-
-    .contact-wrapper {
-        grid-template-columns: 1fr;
-        gap: 36px;
-    }
-
-    .contact-info {
-        text-align: center;
-    }
-
-    .contact-cta-bar {
-        max-width: 440px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .contact-socials {
-        justify-content: center;
-    }
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 48px;
 }
 
-@media (max-width: 580px) {
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
+.nav-toggle {
+    display: none !important;
+}
 
-    .hero-buttons .btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .hero-floating-chip {
-        padding: 8px 12px;
-        gap: 8px;
-        font-size: 0.8rem;
-    }
-
-    .chip-rating {
-        right: -4px;
-        top: 10px;
-    }
-
-    .chip-experience {
-        left: -4px;
-        bottom: 10px;
-    }
-
-    .about-stats {
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    .project-filters {
-        gap: 6px;
-    }
-
-    .filter-btn {
-        padding: 7px 14px;
-        font-size: 0.8rem;
-    }
-
-    .section {
-        padding: 60px 0;
-    }
+.nav-menu {
+    display: flex !important;
+    position: static !important;
+    height: auto !important;
+    width: auto !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    flex-direction: row !important;
 }
 
 /* Skills */
@@ -2758,21 +2518,6 @@ html.light .btn-case-study:hover {
     transform: translateY(-3px);
 }
 
-/* Mobile menu scroll for many links */
-@media (max-width: 768px) {
-    .nav-menu {
-        overflow-y: auto;
-        padding-top: 90px;
-    }
-}
-
-@media (max-width: 480px) {
-    .testimonials-grid,
-    .services-grid,
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
-}
 
 /* ==========================================================================
    Project Case Study Modal & Dynamic View
@@ -2902,11 +2647,6 @@ html.light .project-modal-close {
     margin-bottom: 24px;
 }
 
-@media (max-width: 640px) {
-    .modal-grid-details {
-        grid-template-columns: 1fr;
-    }
-}
 
 .modal-detail-box {
     background: rgba(255, 255, 255, 0.03);
