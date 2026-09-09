@@ -5,10 +5,10 @@ from fpdf.enums import XPos, YPos
 class ATSResume(FPDF):
     def __init__(self):
         super().__init__(format="A4", unit="mm")
-        self.set_auto_page_break(auto=False)
-        self.set_margins(14, 11, 14)
+        self.set_auto_page_break(auto=True, margin=14)
+        self.set_margins(14, 12, 14)
         
-        # Color Palette - Professional Deep Teal & Slate Charcoal
+        # Professional Engineering Color Palette
         self.color_primary = (0, 43, 54)      # #002b36 Deep Ocean Teal
         self.color_accent = (42, 161, 152)    # #2aa198 Cyan / Teal Accent
         self.color_dark = (30, 41, 59)        # Slate 800
@@ -16,54 +16,51 @@ class ATSResume(FPDF):
         self.color_link = (14, 116, 144)      # Cyan 700
 
     def section_header(self, title):
-        self.ln(3.2)
-        self.set_font("Helvetica", "B", 10.2)
+        self.ln(2.8)
+        self.set_font("Helvetica", "B", 10.0)
         self.set_text_color(*self.color_primary)
-        self.cell(0, 4.8, title.upper(), new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        self.cell(182, 4.6, title.upper(), new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         y = self.get_y()
         self.set_draw_color(*self.color_accent)
-        self.set_line_width(0.5)
+        self.set_line_width(0.45)
         self.line(14, y, 196, y)
-        self.ln(2.2)
+        self.ln(2.0)
 
     def item_header(self, title, context="", period=""):
-        self.set_font("Helvetica", "B", 9.5)
+        self.set_font("Helvetica", "B", 9.3)
         self.set_text_color(*self.color_dark)
         
         avail_w = 182  # 210 - 28
-        period_w = self.get_string_width(period) + 2 if period else 0
+        period_w = self.get_string_width(period) + 4 if period else 0
         left_w = avail_w - period_w
         
-        self.cell(left_w, 4.4, title, new_x=XPos.RIGHT, new_y=YPos.TOP)
+        self.cell(left_w, 4.2, title, new_x=XPos.RIGHT, new_y=YPos.TOP)
         if period:
-            self.set_font("Helvetica", "", 8.6)
+            self.set_font("Helvetica", "", 8.4)
             self.set_text_color(*self.color_muted)
-            self.cell(period_w, 4.4, period, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="R")
+            self.cell(period_w, 4.2, period, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="R")
         else:
             self.ln()
 
         if context:
-            self.set_font("Helvetica", "I", 8.6)
+            self.set_font("Helvetica", "I", 8.4)
             self.set_text_color(*self.color_muted)
-            self.cell(0, 3.8, context, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+            self.multi_cell(avail_w, 3.8, context)
 
     def bullet(self, text, bold_prefix=""):
-        self.set_font("Helvetica", "", 8.8)
+        self.set_font("Helvetica", "", 8.7)
         self.set_text_color(*self.color_dark)
-        bullet_char = "-"
-        indent = 3
-        bullet_w = 4
-        content_w = 182 - indent - bullet_w
-
-        self.set_x(14 + indent)
-        self.cell(bullet_w, 4.1, bullet_char, new_x=XPos.RIGHT, new_y=YPos.TOP)
         
-        if bold_prefix:
-            self.set_font("Helvetica", "B", 8.8)
-            self.write(4.1, bold_prefix + " ")
-            self.set_font("Helvetica", "", 8.8)
+        # Robust hanging indent staying strictly within right margin (196mm)
+        bullet_indent = 5
+        self.set_left_margin(14 + bullet_indent)
+        self.set_x(14)
         
-        self.multi_cell(content_w, 4.1, text)
+        bullet_str = f"{chr(149)}  **{bold_prefix}** {text}" if bold_prefix else f"{chr(149)}  {text}"
+        self.multi_cell(182 - bullet_indent, 4.0, bullet_str, markdown=True)
+        
+        self.set_left_margin(14)
+        self.set_x(14)
 
 def build_pdf():
     pdf = ATSResume()
@@ -72,39 +69,40 @@ def build_pdf():
     pdf.add_page()
 
     # --- Header ---
-    pdf.set_font("Helvetica", "B", 20)
+    pdf.set_font("Helvetica", "B", 19)
     pdf.set_text_color(*pdf.color_primary)
-    pdf.cell(0, 8, "ESSIAW CHARLES JNR", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
+    pdf.cell(182, 7.5, "ESSIAW CHARLES JNR", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
 
-    pdf.set_font("Helvetica", "B", 10.5)
+    pdf.set_font("Helvetica", "B", 10.0)
     pdf.set_text_color(*pdf.color_accent)
-    pdf.cell(0, 5, "Software Developer & Full-Stack Systems Engineer", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
+    pdf.cell(182, 4.6, "Software Developer & Full-Stack Systems Engineer", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
 
-    pdf.ln(1)
+    pdf.ln(0.8)
     # Contact Bar
-    pdf.set_font("Helvetica", "", 8.8)
+    pdf.set_font("Helvetica", "", 8.6)
     pdf.set_text_color(*pdf.color_muted)
-    contact_line = "Accra, Ghana (Remote & Relocation Ready)  |  +233 53 798 4448  |  charlesessiawjnr@gmail.com"
-    pdf.cell(0, 4.2, contact_line, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
+    pdf.cell(182, 4.0, "Accra, Ghana (Remote & Relocation Ready)  |  +233 53 798 4448  |  charlesessiawjnr@gmail.com", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
 
-    # Links Bar
+    # Links Bar (Centered, with clickable URLs)
     links = [
         ("Portfolio: kojowallet01.github.io/essiawcharles", "https://kojowallet01.github.io/essiawcharles/"),
         ("GitHub: github.com/kojowallet01", "https://github.com/kojowallet01"),
         ("LinkedIn: charles-essiaw", "https://www.linkedin.com/in/charles-essiaw-92794b253/")
     ]
-    pdf.set_font("Helvetica", "", 8.8)
+    pdf.set_font("Helvetica", "", 8.6)
     pdf.set_text_color(*pdf.color_link)
-    link_line_w = sum(pdf.get_string_width(label) for label, _ in links) + 16
-    start_x = (210 - link_line_w) / 2
+    sep = "   |   "
+    sep_w = pdf.get_string_width(sep)
+    total_links_w = sum(pdf.get_string_width(label) for label, _ in links) + (len(links) - 1) * sep_w
+    start_x = 14 + (182 - total_links_w) / 2
     pdf.set_x(start_x)
     for i, (label, url) in enumerate(links):
-        pdf.write(4.2, label, link=url)
+        pdf.write(4.0, label, link=url)
         if i < len(links) - 1:
             pdf.set_text_color(*pdf.color_muted)
-            pdf.write(4.2, "   |   ")
+            pdf.write(4.0, sep)
             pdf.set_text_color(*pdf.color_link)
-    pdf.ln(4)
+    pdf.ln(3.5)
 
     # --- Professional Summary ---
     pdf.section_header("Professional Summary")
@@ -116,9 +114,9 @@ def build_pdf():
         "PostgreSQL, Python, and Docker with an unwavering engineering commitment to sub-second latency, 100% Core Web "
         "Vitals, and modular, testable codebases."
     )
-    pdf.set_font("Helvetica", "", 9.0)
+    pdf.set_font("Helvetica", "", 8.8)
     pdf.set_text_color(*pdf.color_dark)
-    pdf.multi_cell(182, 4.2, summary_text)
+    pdf.multi_cell(182, 4.0, summary_text)
 
     # --- Technical Skills Matrix ---
     pdf.section_header("Technical Skills & Architecture Matrix")
@@ -130,12 +128,9 @@ def build_pdf():
         ("Engineering Disciplines:", "Real-Time Event Pipelines, Point of Sale Systems, QR Cryptographic Security, GPS Geolocation, Web Performance")
     ]
     for category, items in skills:
-        pdf.set_font("Helvetica", "B", 8.8)
-        pdf.set_text_color(*pdf.color_primary)
-        pdf.cell(39, 4.2, category, new_x=XPos.RIGHT, new_y=YPos.TOP)
-        pdf.set_font("Helvetica", "", 8.8)
+        pdf.set_font("Helvetica", "", 8.6)
         pdf.set_text_color(*pdf.color_dark)
-        pdf.cell(0, 4.2, items, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.multi_cell(182, 4.0, f"**{category}** {items}", markdown=True)
 
     # --- Key Architectural Software Projects ---
     pdf.section_header("Key Architectural Software Projects")
@@ -158,7 +153,7 @@ def build_pdf():
         "Modeled relational PostgreSQL schemas with normalized order ticket states, line items, and station-routing tables to guarantee zero order collision during concurrent dining rushes.",
         "Data Integrity:"
     )
-    pdf.ln(2.0)
+    pdf.ln(1.8)
 
     # Project 2: Ghana Emergency Response System
     pdf.item_header("Ghana Emergency Response & Dispatch Telemetry System", "TypeScript, JavaScript, Python, PostgreSQL, Geolocation API, WebRTC", "Live Deployment")
@@ -178,7 +173,7 @@ def build_pdf():
         "Implemented administrative dispatch console allowing operators to triage incidents by severity, visualize proximity-based emergency units, and update live call statuses.",
         "Command Console:"
     )
-    pdf.ln(2.0)
+    pdf.ln(1.8)
 
     # Project 3: Patron Housing Access Control
     pdf.item_header("Patron Housing Access Control & Visitor Management", "Python, PostgreSQL, Docker, QR Cryptographic Passports, Modern CSS", "Production Solution")
@@ -194,36 +189,33 @@ def build_pdf():
         "Implemented automated security revocation protocols and single-use digital visitor passes, preventing credential sharing and unauthorized residential access.",
         "Tamper-Proof Audit:"
     )
-    pdf.ln(2.0)
+    pdf.ln(1.8)
 
     # --- Architectural Metrics & Quality Highlights ---
     pdf.section_header("Architectural Metrics & Performance Benchmarks")
     metrics = [
-        ("Sub-500ms Broadcast:", "Supabase Realtime WebSockets broadcasting concurrent kitchen order updates."),
-        ("100% Core Web Vitals:", "Zero render-blocking scripts, sub-second LCP, and lightweight vanilla architecture."),
-        ("Zero Data Collision:", "PostgreSQL strict transactional safety, parameterized queries, and RLS policies."),
-        ("Offline Resilience:", "Graceful degradation, client-side event queues, and instant reconnection re-sync.")
+        ("Sub-500ms Realtime Broadcast:", "Supabase WebSockets delivering concurrent kitchen order sync across busy restaurant stations."),
+        ("100% Core Web Vitals Score:", "Zero render-blocking scripts, sub-second LCP, and lightweight vanilla architecture."),
+        ("Zero Data Collision / RLS:", "PostgreSQL strict transactional safety, parameterized queries, and Row Level Security policies."),
+        ("Offline Cellular Resilience:", "Graceful network degradation, client-side event queues, and instant reconnection state reconciliation.")
     ]
     for metric_title, metric_desc in metrics:
-        pdf.set_font("Helvetica", "B", 8.6)
-        pdf.set_text_color(*pdf.color_primary)
-        pdf.cell(42, 4.0, metric_title, new_x=XPos.RIGHT, new_y=YPos.TOP)
         pdf.set_font("Helvetica", "", 8.6)
         pdf.set_text_color(*pdf.color_dark)
-        pdf.cell(0, 4.0, metric_desc, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.multi_cell(182, 4.0, f"**{metric_title}** {metric_desc}", markdown=True)
 
     # ==================== PAGE 2 ====================
     pdf.add_page()
 
     # --- Page 2 Running Header ---
-    pdf.set_font("Helvetica", "B", 8.5)
+    pdf.set_font("Helvetica", "B", 8.2)
     pdf.set_text_color(*pdf.color_primary)
-    pdf.cell(100, 4.0, "ESSIAW CHARLES JNR  |  TECHNICAL CV & ENGINEERING PROFILE", new_x=XPos.RIGHT, new_y=YPos.TOP)
-    pdf.set_font("Helvetica", "", 8.5)
+    pdf.cell(100, 3.8, "ESSIAW CHARLES JNR  |  TECHNICAL CV & ENGINEERING PROFILE", new_x=XPos.RIGHT, new_y=YPos.TOP)
+    pdf.set_font("Helvetica", "", 8.2)
     pdf.set_text_color(*pdf.color_muted)
-    pdf.cell(82, 4.0, "PAGE 2 OF 2  |  charlesessiawjnr@gmail.com", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="R")
+    pdf.cell(82, 3.8, "PAGE 2 OF 2  |  charlesessiawjnr@gmail.com", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="R")
     pdf.set_draw_color(*pdf.color_accent)
-    pdf.set_line_width(0.3)
+    pdf.set_line_width(0.35)
     y = pdf.get_y()
     pdf.line(14, y, 196, y)
     pdf.ln(1.5)
@@ -244,7 +236,7 @@ def build_pdf():
         "Built modular component system and client-side contact inquiries API integration, driving a 35% increase in verified inbound enterprise leads.",
         "Lead Generation:"
     )
-    pdf.ln(2.0)
+    pdf.ln(1.8)
 
     pdf.item_header("Kelrose Tours Travel & Itinerary Booking Platform", "Dynamic JavaScript, Modern Responsive CSS, Tour Catalog, SEO Architecture", "Client Production")
     pdf.bullet(
@@ -259,7 +251,7 @@ def build_pdf():
         "Configured automated inquiry workflows routing customer booking requests directly to operations staff via encrypted communication channels.",
         "Booking Operations:"
     )
-    pdf.ln(2.0)
+    pdf.ln(1.8)
 
     # --- Engineering Experience ---
     pdf.section_header("Professional Engineering Experience & Milestones")
@@ -277,7 +269,7 @@ def build_pdf():
         "Maintain a 5.0 Google client satisfaction rating across commercial engagements through meticulous requirement scoping, disciplined delivery timelines, and proactive communication.",
         "Client Excellence:"
     )
-    pdf.ln(2.0)
+    pdf.ln(1.8)
 
     pdf.item_header("Commercial Web Engineer & Client Consultant", "Freelance & Contract Engagements", "2023 - 2024")
     pdf.bullet(
@@ -292,7 +284,7 @@ def build_pdf():
         "Delivered responsive UI components adhering strictly to mobile-first standards, testing across multi-device viewports and legacy browser runtimes.",
         "Cross-Device Resilience:"
     )
-    pdf.ln(2.0)
+    pdf.ln(1.8)
 
     pdf.item_header("Autonomous Software Apprenticeship & Foundations", "Intensive Systems Engineering & Deliberate Practice (1,500+ Hours)", "2022 - 2023")
     pdf.bullet(
@@ -307,14 +299,14 @@ def build_pdf():
         "Authored reproducible open-source web components and modular architectural blueprints shared with local developer communities in Accra.",
         "Community & Practice:"
     )
-    pdf.ln(2.0)
+    pdf.ln(1.8)
 
-    # --- Education, Certifications & Continuous Learning ---
+    # --- Education, Certifications & Continuous Mastery ---
     pdf.section_header("Education, Certifications & Continuous Mastery")
     pdf.item_header("Software Engineering & Systems Development", "Autonomous Curricula, Open-Source Contributions & Professional Practice", "Accra, Ghana")
     pdf.bullet("Continuous professional mastery in Next.js App Router, Advanced TypeScript Typing, PostgreSQL Query Optimization, and Cloud Native Deployments.")
     pdf.bullet("Committed to perpetual engineering refinement through daily deliberate practice, code review, architectural post-mortems, and modern web specifications.")
-    pdf.ln(2.0)
+    pdf.ln(1.8)
 
     # --- Quality Standards & Methodologies ---
     pdf.section_header("Core Engineering Methodologies & Architectural Standards")
@@ -324,12 +316,9 @@ def build_pdf():
         ("Code Quality & Delivery:", "Modular domain separation, type safety with TypeScript, clean git branching workflows, and rapid automated deployments.")
     ]
     for title, desc in principles:
-        pdf.set_font("Helvetica", "B", 8.5)
-        pdf.set_text_color(*pdf.color_primary)
-        pdf.cell(48, 4.0, title, new_x=XPos.RIGHT, new_y=YPos.TOP)
-        pdf.set_font("Helvetica", "", 8.5)
+        pdf.set_font("Helvetica", "", 8.6)
         pdf.set_text_color(*pdf.color_dark)
-        pdf.cell(0, 4.0, desc, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.multi_cell(182, 4.0, f"**{title}** {desc}", markdown=True)
 
     output_path = "resume.pdf"
     pdf.output(output_path)
