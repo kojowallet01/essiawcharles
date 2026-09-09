@@ -2,327 +2,266 @@ import os
 from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 
-class ATSResume(FPDF):
+class DeveloperResume(FPDF):
     def __init__(self):
         super().__init__(format="A4", unit="mm")
-        self.set_auto_page_break(auto=True, margin=14)
-        self.set_margins(14, 12, 14)
+        self.set_auto_page_break(auto=False)
+        self.margin_left = 16
+        self.margin_right = 16
+        self.margin_top = 14
+        self.margin_bottom = 14
+        self.content_w = 210 - self.margin_left - self.margin_right  # 178 mm
+        self.set_margins(self.margin_left, self.margin_top, self.margin_right)
         
-        # Professional Engineering Color Palette
-        self.color_primary = (0, 43, 54)      # #002b36 Deep Ocean Teal
-        self.color_accent = (42, 161, 152)    # #2aa198 Cyan / Teal Accent
-        self.color_dark = (30, 41, 59)        # Slate 800
-        self.color_muted = (71, 85, 105)      # Slate 600
-        self.color_link = (14, 116, 144)      # Cyan 700
+        # Exact Professional Color Palette
+        self.c_primary = (15, 23, 42)       # Slate 900 / Deep Navy (#0f172a)
+        self.c_accent = (14, 116, 144)      # Cyan 700 (#0e7490)
+        self.c_dark = (30, 41, 59)          # Slate 800 (#1e293b)
+        self.c_muted = (71, 85, 105)        # Slate 600 (#475569)
+        self.c_rule = (148, 163, 184)       # Slate 400 (#94a3b8)
 
     def section_header(self, title):
-        self.ln(2.8)
-        self.set_font("Helvetica", "B", 10.0)
-        self.set_text_color(*self.color_primary)
-        self.cell(182, 4.6, title.upper(), new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        y = self.get_y()
-        self.set_draw_color(*self.color_accent)
-        self.set_line_width(0.45)
-        self.line(14, y, 196, y)
-        self.ln(2.0)
+        self.ln(3.0)
+        self.set_font("Helvetica", "B", 9.8)
+        self.set_text_color(*self.c_primary)
+        self.cell(self.content_w, 4.4, title.upper(), new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        y = self.get_y() + 0.5
+        self.set_draw_color(*self.c_primary)
+        self.set_line_width(0.4)
+        self.line(self.margin_left, y, self.margin_left + self.content_w, y)
+        self.set_y(y + 2.0)
 
-    def item_header(self, title, context="", period=""):
-        self.set_font("Helvetica", "B", 9.3)
-        self.set_text_color(*self.color_dark)
+    def item_header(self, title, subtitle="", status=""):
+        self.ln(1.8)
+        self.set_font("Helvetica", "B", 9.2)
+        self.set_text_color(*self.c_primary)
         
-        avail_w = 182  # 210 - 28
-        period_w = self.get_string_width(period) + 4 if period else 0
-        left_w = avail_w - period_w
+        status_w = self.get_string_width(status) + 4 if status else 0
+        left_w = self.content_w - status_w
         
-        self.cell(left_w, 4.2, title, new_x=XPos.RIGHT, new_y=YPos.TOP)
-        if period:
-            self.set_font("Helvetica", "", 8.4)
-            self.set_text_color(*self.color_muted)
-            self.cell(period_w, 4.2, period, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="R")
+        self.cell(left_w, 4.0, title, new_x=XPos.RIGHT, new_y=YPos.TOP)
+        if status:
+            self.set_font("Helvetica", "", 8.5)
+            self.set_text_color(*self.c_muted)
+            self.cell(status_w, 4.0, status, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="R")
         else:
             self.ln()
 
-        if context:
-            self.set_font("Helvetica", "I", 8.4)
-            self.set_text_color(*self.color_muted)
-            self.multi_cell(avail_w, 3.8, context)
+        if subtitle:
+            self.set_font("Helvetica", "I", 8.2)
+            self.set_text_color(*self.c_muted)
+            self.multi_cell(self.content_w, 3.6, subtitle)
+            self.ln(0.6)
 
-    def bullet(self, text, bold_prefix=""):
-        self.set_font("Helvetica", "", 8.7)
-        self.set_text_color(*self.color_dark)
+    def bullet(self, text):
+        self.set_font("Helvetica", "", 8.5)
+        self.set_text_color(*self.c_dark)
         
-        # Robust hanging indent staying strictly within right margin (196mm)
-        bullet_indent = 5
-        self.set_left_margin(14 + bullet_indent)
-        self.set_x(14)
+        bullet_indent = 4.5
+        self.set_left_margin(self.margin_left + bullet_indent)
+        self.set_x(self.margin_left)
         
-        bullet_str = f"{chr(149)}  **{bold_prefix}** {text}" if bold_prefix else f"{chr(149)}  {text}"
-        self.multi_cell(182 - bullet_indent, 4.0, bullet_str, markdown=True)
+        bullet_char = chr(149)  # standard round bullet in Windows-1252 / Latin-1
+        bullet_str = f"{bullet_char}  {text}"
+        self.multi_cell(self.content_w - bullet_indent, 3.7, bullet_str)
         
-        self.set_left_margin(14)
-        self.set_x(14)
+        self.set_left_margin(self.margin_left)
+        self.set_x(self.margin_left)
 
-def build_pdf():
-    pdf = ATSResume()
+    def skill_line(self, category, items):
+        self.set_font("Helvetica", "B", 8.6)
+        self.set_text_color(*self.c_primary)
+        cat_str = f"{category}: "
+        cat_w = self.get_string_width(cat_str)
+        
+        self.cell(cat_w, 4.0, cat_str, new_x=XPos.RIGHT, new_y=YPos.TOP)
+        self.set_font("Helvetica", "", 8.5)
+        self.set_text_color(*self.c_dark)
+        self.multi_cell(self.content_w - cat_w, 4.0, items)
 
-    # ==================== PAGE 1 ====================
+
+def generate():
+    pdf = DeveloperResume()
+
+    # =========================================================================
+    # PAGE 1
+    # =========================================================================
     pdf.add_page()
 
     # --- Header ---
-    pdf.set_font("Helvetica", "B", 19)
-    pdf.set_text_color(*pdf.color_primary)
-    pdf.cell(182, 7.5, "ESSIAW CHARLES JNR", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
+    pdf.set_font("Helvetica", "B", 18.0)
+    pdf.set_text_color(*pdf.c_primary)
+    pdf.cell(pdf.content_w, 7.0, "ESSIAW CHARLES JNR", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
 
-    pdf.set_font("Helvetica", "B", 10.0)
-    pdf.set_text_color(*pdf.color_accent)
-    pdf.cell(182, 4.6, "Software Developer & Full-Stack Systems Engineer", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
+    pdf.set_font("Helvetica", "B", 9.8)
+    pdf.set_text_color(*pdf.c_accent)
+    pdf.cell(pdf.content_w, 4.6, "Software Developer & Full-Stack Systems Engineer", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
 
-    pdf.ln(0.8)
-    # Contact Bar
-    pdf.set_font("Helvetica", "", 8.6)
-    pdf.set_text_color(*pdf.color_muted)
-    pdf.cell(182, 4.0, "Accra, Ghana (Remote & Relocation Ready)  |  +233 53 798 4448  |  charlesessiawjnr@gmail.com", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
+    # Contact line
+    pdf.set_font("Helvetica", "", 8.4)
+    pdf.set_text_color(*pdf.c_muted)
+    contact_text = f"Accra, Ghana (Remote & Relocation Ready)  |  +233 53 798 4448  |  charlesessiawjnr@gmail.com"
+    pdf.cell(pdf.content_w, 4.0, contact_text, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
 
-    # Links Bar (Centered, with clickable URLs)
+    # Underlined Links line
     links = [
-        ("Portfolio: kojowallet01.github.io/essiawcharles", "https://kojowallet01.github.io/essiawcharles/"),
-        ("GitHub: github.com/kojowallet01", "https://github.com/kojowallet01"),
-        ("LinkedIn: charles-essiaw", "https://www.linkedin.com/in/charles-essiaw-92794b253/")
+        ("Portfolio", "https://kojowallet01.github.io/essiawcharles/"),
+        ("GitHub", "https://github.com/kojowallet01"),
+        ("LinkedIn", "https://www.linkedin.com/in/charles-essiaw-92794b253/")
     ]
-    pdf.set_font("Helvetica", "", 8.6)
-    pdf.set_text_color(*pdf.color_link)
-    sep = "   |   "
+    sep = "  |  "
+    pdf.set_font("Helvetica", "U", 8.4)
     sep_w = pdf.get_string_width(sep)
-    total_links_w = sum(pdf.get_string_width(label) for label, _ in links) + (len(links) - 1) * sep_w
-    start_x = 14 + (182 - total_links_w) / 2
+    links_w = sum(pdf.get_string_width(label) for label, _ in links) + (len(links) - 1) * sep_w
+    start_x = pdf.margin_left + (pdf.content_w - links_w) / 2
     pdf.set_x(start_x)
     for i, (label, url) in enumerate(links):
+        pdf.set_font("Helvetica", "U", 8.4)
+        pdf.set_text_color(*pdf.c_accent)
         pdf.write(4.0, label, link=url)
         if i < len(links) - 1:
-            pdf.set_text_color(*pdf.color_muted)
+            pdf.set_font("Helvetica", "", 8.4)
+            pdf.set_text_color(*pdf.c_muted)
             pdf.write(4.0, sep)
-            pdf.set_text_color(*pdf.color_link)
-    pdf.ln(3.5)
+    pdf.ln(5.0)
 
-    # --- Professional Summary ---
+    # Header horizontal rule
+    y = pdf.get_y()
+    pdf.set_draw_color(*pdf.c_primary)
+    pdf.set_line_width(0.5)
+    pdf.line(pdf.margin_left, y, pdf.margin_left + pdf.content_w, y)
+    pdf.set_y(y + 2.0)
+
+    # --- PROFESSIONAL SUMMARY ---
     pdf.section_header("Professional Summary")
-    summary_text = (
-        "High-velocity Full-Stack Software Developer specializing in resilient web applications, real-time "
-        "event-driven systems, and clean UI engineering. Proven track record architecting mission-critical production "
-        "platforms including cloud restaurant POS/KDS systems, national emergency dispatch command software, and "
-        "cryptographic QR access control. Extensive proficiency in TypeScript, Next.js (App Router), Supabase, "
-        "PostgreSQL, Python, and Docker with an unwavering engineering commitment to sub-second latency, 100% Core Web "
-        "Vitals, and modular, testable codebases."
+    summary = (
+        "Full-stack software developer specializing in resilient web applications, real-time event-driven systems, "
+        "and clean UI engineering. Experience architecting production platforms including a cloud restaurant POS/KDS "
+        "system, an emergency dispatch coordination platform, and a cryptographic QR access-control system. "
+        "Proficient in TypeScript, Next.js (App Router), Supabase, PostgreSQL, Python, and Docker, with a consistent "
+        "focus on sub-second latency, strong Core Web Vitals scores, and modular, testable code."
     )
-    pdf.set_font("Helvetica", "", 8.8)
-    pdf.set_text_color(*pdf.color_dark)
-    pdf.multi_cell(182, 4.0, summary_text)
+    pdf.set_font("Helvetica", "", 8.5)
+    pdf.set_text_color(*pdf.c_dark)
+    pdf.multi_cell(pdf.content_w, 3.8, summary)
 
-    # --- Technical Skills Matrix ---
-    pdf.section_header("Technical Skills & Architecture Matrix")
-    skills = [
-        ("Languages:", "TypeScript, JavaScript (ES6+), Python, SQL (PostgreSQL), HTML5, CSS3, Bash"),
-        ("Frontend Architecture:", "Next.js 14/15 (App Router), React, Tailwind CSS, Component Architecture, State Machines, Core Web Vitals"),
-        ("Backend & Realtime:", "Node.js, Supabase (Realtime & Auth), RESTful APIs, WebSockets, Python (FastAPI/Flask), Server Actions"),
-        ("Databases & Cloud:", "PostgreSQL, Relational Data Modeling, Docker, Vercel, Render, Git/GitHub, Linux Infrastructure"),
-        ("Engineering Disciplines:", "Real-Time Event Pipelines, Point of Sale Systems, QR Cryptographic Security, GPS Geolocation, Web Performance")
-    ]
-    for category, items in skills:
-        pdf.set_font("Helvetica", "", 8.6)
-        pdf.set_text_color(*pdf.color_dark)
-        pdf.multi_cell(182, 4.0, f"**{category}** {items}", markdown=True)
+    # --- TECHNICAL SKILLS ---
+    pdf.section_header("Technical Skills")
+    pdf.skill_line("Languages", "TypeScript, JavaScript (ES6+), Python, SQL (PostgreSQL), HTML5, CSS3, Bash")
+    pdf.skill_line("Frontend", "Next.js (App Router), React, Tailwind CSS, Responsive & Accessible UI (WCAG 2.1 AA)")
+    pdf.skill_line("Backend & Data", "Node.js, Python, REST APIs, Supabase, PostgreSQL")
+    pdf.skill_line("Real-Time & Systems", "WebSockets, WebRTC, Geolocation API, Service Workers, Offline-First Architecture")
+    pdf.skill_line("DevOps & Tools", "Docker, Render, Git, CI/CD")
 
-    # --- Key Architectural Software Projects ---
-    pdf.section_header("Key Architectural Software Projects")
+    # --- KEY PROJECTS ---
+    dot = chr(183)  # middle dot
+    dash = chr(151) # em-dash
+    en = chr(150)   # en-dash
 
-    # Project 1: Sweetbite POS & KDS
-    pdf.item_header("Sweetbite Food POS & Kitchen Display System (KDS)", "Next.js 14, TypeScript, Supabase Realtime, PostgreSQL, Tailwind CSS", "Active Production System")
-    pdf.bullet(
-        "Architected an end-to-end synchronized cloud Point of Sale (POS) and Kitchen Display System (KDS) for busy food service operations, replacing physical paper tickets and eliminating kitchen communication bottlenecks.",
-        "Real-Time Telemetry:"
-    )
-    pdf.bullet(
-        "Leveraged Supabase Realtime WebSocket channels with bi-directional state sync to broadcast order placement, modifications, and ticket status changes across kitchen stations with sub-500ms latency.",
-        "Sub-Second Synchronization:"
-    )
-    pdf.bullet(
-        "Designed auditory kitchen alert chime systems, high-contrast touch ticket layouts, automated table-routing, and optimistic UI updates for seamless offline and reconnection recovery.",
-        "Kitchen Operations UX:"
-    )
-    pdf.bullet(
-        "Modeled relational PostgreSQL schemas with normalized order ticket states, line items, and station-routing tables to guarantee zero order collision during concurrent dining rushes.",
-        "Data Integrity:"
-    )
-    pdf.ln(1.8)
+    pdf.section_header("Key Projects")
 
-    # Project 2: Ghana Emergency Response System
-    pdf.item_header("Ghana Emergency Response & Dispatch Telemetry System", "TypeScript, JavaScript, Python, PostgreSQL, Geolocation API, WebRTC", "Live Deployment")
-    pdf.bullet(
-        "Engineered a mission-critical emergency web application enabling instant geolocation-tagged SOS distress calls for rapid dispatch coordination of emergency response units across Ghana.",
-        "Rapid Citizen SOS:"
+    # Sweetbite
+    pdf.item_header(
+        "Sweetbite Food POS & Kitchen Display System (KDS)",
+        f"Next.js 14 {dot} TypeScript {dot} Supabase Realtime {dot} PostgreSQL {dot} Tailwind CSS",
+        "Active Production System"
     )
-    pdf.bullet(
-        "Developed live coordinate telemetry with interactive mapping, geofencing, and instantaneous voice-note transmission, slashing incident verification and response coordination times.",
-        "Live Dispatch Telemetry:"
-    )
-    pdf.bullet(
-        "Architected high-reliability client-side offline queues and service worker persistence to safely cache emergency distress requests under intermittent or severed cellular connectivity.",
-        "Offline Fault Tolerance:"
-    )
-    pdf.bullet(
-        "Implemented administrative dispatch console allowing operators to triage incidents by severity, visualize proximity-based emergency units, and update live call statuses.",
-        "Command Console:"
-    )
-    pdf.ln(1.8)
+    pdf.bullet("Built an end-to-end cloud POS and Kitchen Display System for food service operations, replacing paper tickets and reducing kitchen communication delays.")
+    pdf.bullet("Used Supabase Realtime WebSocket channels with bi-directional state sync to broadcast order and ticket status updates across kitchen stations in under 500ms.")
+    pdf.bullet("Designed kitchen alert chimes, high-contrast touch ticket layouts, automated table routing, and optimistic UI updates with offline/reconnection recovery.")
+    pdf.bullet("Modeled normalized PostgreSQL schemas for order states, line items, and station routing to prevent order collisions during peak hours.")
 
-    # Project 3: Patron Housing Access Control
-    pdf.item_header("Patron Housing Access Control & Visitor Management", "Python, PostgreSQL, Docker, QR Cryptographic Passports, Modern CSS", "Production Solution")
-    pdf.bullet(
-        "Engineered automated residential access control platform handling digital visitor pass generation, security gate check-ins, and cryptographic QR code validation.",
-        "Cryptographic Access:"
+    # Ghana Emergency
+    pdf.item_header(
+        "Ghana Emergency Response & Dispatch Telemetry System",
+        f"TypeScript {dot} JavaScript {dot} Python {dot} PostgreSQL {dot} Geolocation API {dot} WebRTC",
+        "Live Deployment"
     )
-    pdf.bullet(
-        "Built centralized administrative dashboards with real-time entry/exit logs, resident authorization workflows, and Dockerized deployment on Render cloud infrastructure.",
-        "Infrastructure & Ops:"
-    )
-    pdf.bullet(
-        "Implemented automated security revocation protocols and single-use digital visitor passes, preventing credential sharing and unauthorized residential access.",
-        "Tamper-Proof Audit:"
-    )
-    pdf.ln(1.8)
+    pdf.bullet("Built an emergency web application for geolocation-tagged SOS requests to support rapid dispatch coordination across Ghana.")
+    pdf.bullet("Implemented live coordinate telemetry with interactive mapping, geofencing, and voice-note transmission to speed up incident verification.")
+    pdf.bullet("Added client-side offline queues and service-worker persistence to preserve distress requests during intermittent connectivity.")
+    pdf.bullet("Built an administrative dispatch console for triaging incidents by severity, viewing nearby units, and updating live call status.")
 
-    # --- Architectural Metrics & Quality Highlights ---
-    pdf.section_header("Architectural Metrics & Performance Benchmarks")
-    metrics = [
-        ("Sub-500ms Realtime Broadcast:", "Supabase WebSockets delivering concurrent kitchen order sync across busy restaurant stations."),
-        ("100% Core Web Vitals Score:", "Zero render-blocking scripts, sub-second LCP, and lightweight vanilla architecture."),
-        ("Zero Data Collision / RLS:", "PostgreSQL strict transactional safety, parameterized queries, and Row Level Security policies."),
-        ("Offline Cellular Resilience:", "Graceful network degradation, client-side event queues, and instant reconnection state reconciliation.")
-    ]
-    for metric_title, metric_desc in metrics:
-        pdf.set_font("Helvetica", "", 8.6)
-        pdf.set_text_color(*pdf.color_dark)
-        pdf.multi_cell(182, 4.0, f"**{metric_title}** {metric_desc}", markdown=True)
+    # Patron Housing
+    pdf.item_header(
+        "Patron Housing Access Control & Visitor Management",
+        f"Python {dot} PostgreSQL {dot} Docker {dot} Cryptographic QR Codes {dot} Modern CSS",
+        "Production Solution"
+    )
+    pdf.bullet("Built a residential access-control platform for digital visitor passes, gate check-ins, and cryptographic QR code validation.")
+    pdf.bullet("Created an administrative dashboard with real-time entry/exit logs and resident authorization workflows; deployed with Docker on Render.")
+    pdf.bullet("Implemented automated pass revocation and single-use visitor passes to prevent credential sharing.")
 
-    # ==================== PAGE 2 ====================
+    # --- CLIENT & COMMERCIAL PLATFORMS (First entry on Page 1) ---
+    pdf.section_header("Client & Commercial Platforms")
+    pdf.item_header(
+        f"BizConnect Technologies {dash} Enterprise Portal",
+        f"Modern JavaScript {dot} Accessible UI/UX {dot} REST APIs",
+        "Client Production"
+    )
+    pdf.bullet("Built a corporate web platform with a lean codebase, responsive layouts, and a 100% Core Web Vitals score.")
+    pdf.bullet("Implemented WCAG 2.1 AA accessible typography, keyboard navigation, and semantic HTML structure.")
+    pdf.bullet("Built a modular component system and contact-inquiry API integration that drove a 35% increase in verified inbound leads.")
+
+    # =========================================================================
+    # PAGE 2
+    # =========================================================================
     pdf.add_page()
 
-    # --- Page 2 Running Header ---
-    pdf.set_font("Helvetica", "B", 8.2)
-    pdf.set_text_color(*pdf.color_primary)
-    pdf.cell(100, 3.8, "ESSIAW CHARLES JNR  |  TECHNICAL CV & ENGINEERING PROFILE", new_x=XPos.RIGHT, new_y=YPos.TOP)
-    pdf.set_font("Helvetica", "", 8.2)
-    pdf.set_text_color(*pdf.color_muted)
-    pdf.cell(82, 3.8, "PAGE 2 OF 2  |  charlesessiawjnr@gmail.com", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="R")
-    pdf.set_draw_color(*pdf.color_accent)
-    pdf.set_line_width(0.35)
-    y = pdf.get_y()
-    pdf.line(14, y, 196, y)
-    pdf.ln(1.5)
+    # Kelrose Tours
+    pdf.item_header(
+        f"Kelrose Tours {dash} Travel & Itinerary Booking Platform",
+        f"JavaScript {dot} Responsive CSS {dot} SEO",
+        "Client Production"
+    )
+    pdf.bullet("Designed and deployed a travel platform with interactive tour itinerary catalogs and destination guides.")
+    pdf.bullet("Optimized responsive layout, image delivery, and metadata indexing to improve search visibility and mobile retention.")
+    pdf.bullet("Configured automated inquiry workflows routing customer booking requests to operations staff.")
 
-    # --- Enterprise Commercial Platforms ---
-    pdf.section_header("Enterprise Commercial Platforms & Deployments")
+    # --- PROFESSIONAL EXPERIENCE ---
+    pdf.section_header("Professional Experience")
 
-    pdf.item_header("BizConnect Technologies Enterprise Portal", "Modern JavaScript, Accessible UI/UX, Performance Optimization, REST APIs", "Client Production")
-    pdf.bullet(
-        "Engineered enterprise corporate web platform for BizConnect Technologies featuring zero external bundle bloat, responsive layouts, and a perfect 100% Core Web Vitals audit.",
-        "Zero-Bloat Engineering:"
+    pdf.item_header(
+        "Full-Stack Systems Engineer & Independent Developer",
+        f"Independent / Client Engagements {dash} Accra, Ghana",
+        f"2024 {en} Present"
     )
-    pdf.bullet(
-        "Implemented WCAG 2.1 AA accessible typography, keyboard navigation, and semantic HTML structure to guarantee universal accessibility across enterprise clients.",
-        "Enterprise Accessibility:"
-    )
-    pdf.bullet(
-        "Built modular component system and client-side contact inquiries API integration, driving a 35% increase in verified inbound enterprise leads.",
-        "Lead Generation:"
-    )
-    pdf.ln(1.8)
+    pdf.bullet("Lead full-lifecycle engineering for web systems across hospitality, municipal emergency, and commercial sectors.")
+    pdf.bullet("Design PostgreSQL database models, implement role-based access control, and build asynchronous, event-driven services deployed on cloud infrastructure.")
+    pdf.bullet("Maintain a 5.0 client satisfaction rating (Google Reviews) through careful requirement scoping and disciplined delivery.")
 
-    pdf.item_header("Kelrose Tours Travel & Itinerary Booking Platform", "Dynamic JavaScript, Modern Responsive CSS, Tour Catalog | kojowallet01.github.io/kelrose", "Client Production")
-    pdf.bullet(
-        "Designed and deployed full-featured travel platform for Kelrose Tours featuring interactive tour itinerary catalogs, curated destination guides, and conversion funnels.",
-        "Tour Architecture:"
+    pdf.item_header(
+        "Commercial Web Engineer & Client Consultant",
+        "Freelance & Contract Engagements",
+        f"2023 {en} 2024"
     )
-    pdf.bullet(
-        "Optimized responsive layout, image delivery pipelines, and metadata indexing, enhancing organic search visibility and mobile user retention.",
-        "Mobile Optimization:"
-    )
-    pdf.bullet(
-        "Configured automated inquiry workflows routing customer booking requests directly to operations staff via encrypted communication channels.",
-        "Booking Operations:"
-    )
-    pdf.ln(1.8)
+    pdf.bullet("Modernized legacy web applications for SME clients, migrating static pages to interactive stacks and improving conversion funnels.")
+    pdf.bullet("Ran performance audits and asset optimization that cut page load times by over 40%, achieving sub-second Largest Contentful Paint.")
+    pdf.bullet("Delivered responsive, mobile-first UI components tested across devices and legacy browsers.")
 
-    # --- Engineering Experience ---
-    pdf.section_header("Professional Engineering Experience & Milestones")
+    pdf.item_header(
+        "Software Engineering Apprenticeship & Foundations",
+        f"Self-Directed Study {dash} 1,500+ hours",
+        f"2022 {en} 2023"
+    )
+    pdf.bullet("Completed a self-directed curriculum covering algorithms, asynchronous concurrency, network protocols (HTTP/REST/WebSockets), and relational database design.")
+    pdf.bullet("Adopted AI-assisted development workflows to prototype, refactor, and test code more efficiently.")
+    pdf.bullet("Built and shared open-source web components with local developer communities in Accra.")
 
-    pdf.item_header("Full-Stack Systems Engineer & Independent Developer", "Autonomous Software Engineering & Client Solutions - Accra, Ghana", "2024 - Present")
-    pdf.bullet(
-        "Lead the complete software engineering lifecycle for high-stakes web systems across hospitality, municipal emergency, and commercial enterprise sectors.",
-        "Full-Lifecycle Engineering:"
-    )
-    pdf.bullet(
-        "Architect robust database models in PostgreSQL, implement secure role-based access control, write asynchronous event-driven services, and manage continuous deployment on cloud infrastructure.",
-        "Database & Cloud Delivery:"
-    )
-    pdf.bullet(
-        "Maintain a 5.0 Google client satisfaction rating across commercial engagements through meticulous requirement scoping, disciplined delivery timelines, and proactive communication.",
-        "Client Excellence:"
-    )
-    pdf.ln(1.8)
+    # --- EDUCATION & CONTINUOUS LEARNING ---
+    pdf.section_header("Education & Continuous Learning")
 
-    pdf.item_header("Commercial Web Engineer & Client Consultant", "Freelance & Contract Engagements", "2023 - 2024")
-    pdf.bullet(
-        "Consulted with SME business owners to modernize legacy web applications, migrate outdated static pages to interactive modern stacks, and optimize conversion funnels.",
-        "Frontend Modernization:"
+    pdf.item_header(
+        f"Software Engineering & Systems Development {dash} Accra, Ghana",
+        "Self-directed curricula, open-source contributions, and professional practice"
     )
-    pdf.bullet(
-        "Implemented performance audits and asset optimization techniques, reducing page load times by over 40% and achieving sub-second Largest Contentful Paint (LCP).",
-        "Performance Engineering:"
-    )
-    pdf.bullet(
-        "Delivered responsive UI components adhering strictly to mobile-first standards, testing across multi-device viewports and legacy browser runtimes.",
-        "Cross-Device Resilience:"
-    )
-    pdf.ln(1.8)
+    pdf.bullet("Ongoing study in Next.js App Router, advanced TypeScript, PostgreSQL query optimization, and cloud-native deployment.")
 
-    pdf.item_header("Autonomous Software Apprenticeship & Foundations", "Intensive Systems Engineering & Deliberate Practice (1,500+ Hours)", "2022 - 2023")
-    pdf.bullet(
-        "Completed rigorous self-directed engineering curriculum covering algorithmic complexity, asynchronous concurrency, network protocols (HTTP/REST/WebSockets), and relational database modeling.",
-        "Theoretical Foundations:"
-    )
-    pdf.bullet(
-        "Pioneered AI-augmented development workflows, pairing with cutting-edge agentic tools to prototype, refactor, and rigorously stress-test codebases at accelerated speed.",
-        "AI-Augmented Engineering:"
-    )
-    pdf.bullet(
-        "Authored reproducible open-source web components and modular architectural blueprints shared with local developer communities in Accra.",
-        "Community & Practice:"
-    )
-    pdf.ln(1.8)
-
-    # --- Education, Certifications & Continuous Mastery ---
-    pdf.section_header("Education, Certifications & Continuous Mastery")
-    pdf.item_header("Software Engineering & Systems Development", "Autonomous Curricula, Open-Source Contributions & Professional Practice", "Accra, Ghana")
-    pdf.bullet("Continuous professional mastery in Next.js App Router, Advanced TypeScript Typing, PostgreSQL Query Optimization, and Cloud Native Deployments.")
-    pdf.bullet("Committed to perpetual engineering refinement through daily deliberate practice, code review, architectural post-mortems, and modern web specifications.")
-    pdf.ln(1.8)
-
-    # --- Quality Standards & Methodologies ---
-    pdf.section_header("Core Engineering Methodologies & Architectural Standards")
-    principles = [
-        ("Resilient System Design:", "Offline-first thinking, fallback event queues, optimistic UI state updates, and graceful network degradation."),
-        ("Performance Discipline:", "Zero unnecessary dependencies, sub-second LCP, minimal DOM reflows, and rigorous Core Web Vitals adherence."),
-        ("Code Quality & Delivery:", "Modular domain separation, type safety with TypeScript, clean git branching workflows, and rapid automated deployments.")
-    ]
-    for title, desc in principles:
-        pdf.set_font("Helvetica", "", 8.6)
-        pdf.set_text_color(*pdf.color_dark)
-        pdf.multi_cell(182, 4.0, f"**{title}** {desc}", markdown=True)
-
-    output_path = "resume.pdf"
+    # Save output
+    output_path = os.path.join(os.path.dirname(__file__), "resume.pdf")
     pdf.output(output_path)
-    print(f"Successfully generated {output_path} ({os.path.getsize(output_path)} bytes, {pdf.pages_count} pages)")
+    page_count = len(pdf.pages)
+    print(f"Resume generated: {output_path} ({page_count} pages)")
 
 if __name__ == "__main__":
-    build_pdf()
+    generate()

@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Essiaw Charles Jnr - Software Developer & Full-Stack Engineer Resume</title>
-    <meta name="description" content="Official ATS-friendly developer resume for Essiaw Charles Jnr. Full-stack software developer specializing in TypeScript, Next.js, Supabase, Python, PostgreSQL, and real-time systems.">
+    <title>Essiaw Charles Jnr - Software Developer & Full-Stack Systems Engineer Resume</title>
+    <meta name="description" content="Official developer resume for Essiaw Charles Jnr. Full-stack software developer specializing in TypeScript, Next.js, Supabase, Python, PostgreSQL, and real-time systems.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --primary: #002b36;
-            --accent: #2aa198;
+            --primary: #0f172a;
+            --accent: #0e7490;
             --text-main: #1e293b;
             --text-muted: #475569;
             --border: #cbd5e1;
@@ -89,7 +89,7 @@
         }
 
         .btn-primary:hover {
-            background-color: #073642;
+            background-color: #1e293b;
         }
 
         .btn-outline {
@@ -108,86 +108,104 @@
             background: var(--card-bg);
             padding: 3rem;
             border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 43, 54, 0.08);
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
             border: 1px solid var(--border);
         }
 
         header {
             text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid var(--accent);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 2px solid var(--primary);
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 2.1rem;
             font-weight: 700;
             color: var(--primary);
-            letter-spacing: -0.5px;
-            margin-bottom: 0.35rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
             text-transform: uppercase;
         }
 
         .title {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--accent);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         .contact-info {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 0.75rem 1.25rem;
+            gap: 0.4rem 0.8rem;
             font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .links-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .links-bar a {
+            color: var(--accent);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        .links-bar span {
             color: var(--text-muted);
         }
 
-        .contact-info a {
-            color: var(--link);
-            text-decoration: none;
-        }
-
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
-
         section {
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.6rem;
         }
 
         h2 {
-            font-size: 1.05rem;
+            font-size: 1.0rem;
             font-weight: 700;
             color: var(--primary);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border-bottom: 1.5px solid var(--accent);
-            padding-bottom: 0.3rem;
-            margin-bottom: 0.9rem;
+            border-bottom: 1.5px solid var(--primary);
+            padding-bottom: 0.25rem;
+            margin-bottom: 0.8rem;
         }
 
         .summary-text {
-            font-size: 0.93rem;
+            font-size: 0.92rem;
             line-height: 1.6;
             color: var(--text-main);
         }
 
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 140px 1fr;
-            row-gap: 0.45rem;
-            font-size: 0.92rem;
+        .skills-table {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            font-size: 0.9rem;
         }
 
-        .skill-category {
+        .skill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            line-height: 1.45;
+        }
+
+        .skill-name {
             font-weight: 700;
             color: var(--primary);
+            min-width: 150px;
         }
 
-        .skill-list {
+        .skill-detail {
             color: var(--text-main);
+            flex: 1;
         }
 
         .item {
@@ -204,11 +222,11 @@
             align-items: baseline;
             flex-wrap: wrap;
             gap: 0.25rem;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.15rem;
         }
 
         .item-title {
-            font-size: 0.98rem;
+            font-size: 0.96rem;
             font-weight: 700;
             color: var(--primary);
         }
@@ -220,10 +238,10 @@
         }
 
         .item-subtitle {
-            font-size: 0.88rem;
+            font-size: 0.86rem;
             color: var(--text-muted);
             font-style: italic;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.35rem;
         }
 
         ul.bullets {
@@ -234,9 +252,9 @@
         ul.bullets li {
             position: relative;
             padding-left: 1.2rem;
-            font-size: 0.9rem;
+            font-size: 0.89rem;
             line-height: 1.5;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.3rem;
             color: var(--text-main);
         }
 
@@ -244,25 +262,16 @@
             content: "•";
             position: absolute;
             left: 0.2rem;
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        ul.bullets li strong {
             color: var(--primary);
+            font-weight: bold;
         }
 
         @media (max-width: 640px) {
             .resume-page {
                 padding: 1.5rem;
             }
-            .skills-grid {
-                grid-template-columns: 1fr;
-                row-gap: 0.2rem;
-                margin-bottom: 0.75rem;
-            }
-            .skill-category {
-                margin-top: 0.4rem;
+            .skill-name {
+                min-width: 100%;
             }
         }
 
@@ -280,18 +289,13 @@
                 padding: 0;
                 max-width: 100%;
             }
-            a {
-                text-decoration: none;
-                color: inherit;
-            }
-            h1 {
-                font-size: 1.7rem;
-            }
-            h2 {
+            .page-break {
+                break-before: page;
+                page-break-before: always;
                 margin-top: 1rem;
             }
             @page {
-                margin: 12mm 15mm;
+                margin: 14mm 16mm;
                 size: A4;
             }
         }
@@ -305,65 +309,78 @@
     <div class="action-bar">
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
         <div class="action-buttons">
-            <a href="resume.pdf" class="btn btn-primary" download><i class="fas fa-file-pdf"></i> Download PDF</a>
+            <a href="resume.pdf" class="btn btn-primary" download="Essiaw_Charles_Jnr_Resume.pdf"><i class="fas fa-file-pdf"></i> Download PDF</a>
             <button type="button" onclick="window.print()" class="btn btn-outline"><i class="fas fa-print"></i> Print / Save</button>
         </div>
     </div>
 
     <div class="resume-page" id="resumeContent">
         <header>
-            <h1>Essiaw Charles Jnr</h1>
-            <div class="title">Software Developer &amp; Full-Stack Engineer</div>
+            <h1>ESSIAW CHARLES JNR</h1>
+            <div class="title">Software Developer &amp; Full-Stack Systems Engineer</div>
             <div class="contact-info">
-                <span><i class="fas fa-map-marker-alt"></i> Accra, Ghana (Remote Ready)</span>
-                <span><i class="fas fa-phone"></i> +233 53 798 4448</span>
-                <span><i class="fas fa-envelope"></i> <a href="mailto:charlesessiawjnr@gmail.com">charlesessiawjnr@gmail.com</a></span>
-                <span><i class="fas fa-globe"></i> <a href="https://kojowallet01.github.io/essiawcharles/" target="_blank" rel="noopener">kojowallet01.github.io/essiawcharles</a></span>
-                <span><i class="fab fa-github"></i> <a href="https://github.com/kojowallet01" target="_blank" rel="noopener">github.com/kojowallet01</a></span>
-                <span><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/charles-essiaw-92794b253/" target="_blank" rel="noopener">linkedin.com/in/charles-essiaw</a></span>
+                <span>Accra, Ghana (Remote &amp; Relocation Ready)</span>
+                <span>|</span>
+                <span>+233 53 798 4448</span>
+                <span>|</span>
+                <span>charlesessiawjnr@gmail.com</span>
+            </div>
+            <div class="links-bar">
+                <a href="https://kojowallet01.github.io/essiawcharles/" target="_blank" rel="noopener">Portfolio</a>
+                <span>|</span>
+                <a href="https://github.com/kojowallet01" target="_blank" rel="noopener">GitHub</a>
+                <span>|</span>
+                <a href="https://www.linkedin.com/in/charles-essiaw-92794b253/" target="_blank" rel="noopener">LinkedIn</a>
             </div>
         </header>
 
         <section>
-            <h2>Professional Summary</h2>
+            <h2>PROFESSIONAL SUMMARY</h2>
             <p class="summary-text">
-                High-velocity Full-Stack Software Developer specializing in resilient web applications, real-time event systems, and clean UI engineering. Proven track record architecting mission-critical production platforms including cloud restaurant POS/KDS systems, emergency dispatch command software, and secure QR access control. Proficient in TypeScript, Next.js, Supabase, PostgreSQL, Python, and Docker with a disciplined focus on sub-second latency, 100% Core Web Vitals, and modular, testable codebases.
+                Full-stack software developer specializing in resilient web applications, real-time event-driven systems, and clean UI engineering. Experience architecting production platforms including a cloud restaurant POS/KDS system, an emergency dispatch coordination platform, and a cryptographic QR access-control system. Proficient in TypeScript, Next.js (App Router), Supabase, PostgreSQL, Python, and Docker, with a consistent focus on sub-second latency, strong Core Web Vitals scores, and modular, testable code.
             </p>
         </section>
 
         <section>
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">Languages:</div>
-                <div class="skill-list">TypeScript, JavaScript (ES6+), Python, SQL (PostgreSQL), HTML5, CSS3</div>
-
-                <div class="skill-category">Frontend:</div>
-                <div class="skill-list">Next.js (App Router), React, Tailwind CSS, Responsive UI/UX, State Management, Core Web Vitals</div>
-
-                <div class="skill-category">Backend &amp; APIs:</div>
-                <div class="skill-list">Node.js, Supabase (Realtime &amp; Auth), RESTful APIs, WebSockets, Python (FastAPI/Flask)</div>
-
-                <div class="skill-category">Cloud &amp; DevOps:</div>
-                <div class="skill-list">PostgreSQL, Supabase DB, Relational Data Modeling, Docker, Vercel, Render, Git/GitHub</div>
-
-                <div class="skill-category">Specializations:</div>
-                <div class="skill-list">Real-Time Event Pipelines, Point of Sale Systems, QR Cryptographic Security, GPS Geolocation, UI/UX</div>
+            <h2>TECHNICAL SKILLS</h2>
+            <div class="skills-table">
+                <div class="skill-row">
+                    <span class="skill-name">Languages:</span>
+                    <span class="skill-detail">TypeScript, JavaScript (ES6+), Python, SQL (PostgreSQL), HTML5, CSS3, Bash</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">Frontend:</span>
+                    <span class="skill-detail">Next.js (App Router), React, Tailwind CSS, Responsive &amp; Accessible UI (WCAG 2.1 AA)</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">Backend &amp; Data:</span>
+                    <span class="skill-detail">Node.js, Python, REST APIs, Supabase, PostgreSQL</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">Real-Time &amp; Systems:</span>
+                    <span class="skill-detail">WebSockets, WebRTC, Geolocation API, Service Workers, Offline-First Architecture</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">DevOps &amp; Tools:</span>
+                    <span class="skill-detail">Docker, Render, Git, CI/CD</span>
+                </div>
             </div>
         </section>
 
         <section>
-            <h2>Key Software Projects &amp; Production Architecture</h2>
+            <h2>KEY PROJECTS</h2>
 
             <div class="item">
                 <div class="item-header">
                     <div class="item-title">Sweetbite Food POS &amp; Kitchen Display System (KDS)</div>
                     <div class="item-period">Active Production System</div>
                 </div>
-                <div class="item-subtitle">Next.js 14, TypeScript, Supabase Realtime, PostgreSQL, Tailwind CSS</div>
+                <div class="item-subtitle">Next.js 14 · TypeScript · Supabase Realtime · PostgreSQL · Tailwind CSS</div>
                 <ul class="bullets">
-                    <li><strong>Real-Time Pipeline:</strong> Architected a synchronized cloud Point of Sale (POS) and Kitchen Display System (KDS) for food service operations, eliminating manual paper order slips and kitchen communication delays.</li>
-                    <li><strong>Sub-Second Latency:</strong> Leveraged Supabase Realtime WebSocket channels to broadcast order creation, status updates, and ticket closures across multiple kitchen stations instantly.</li>
-                    <li><strong>Kitchen UX:</strong> Implemented auditory order alerts, responsive touch-friendly ticket layouts, automated table-routing, and optimistic UI updates for reliable offline and reconnection resilience.</li>
+                    <li>Built an end-to-end cloud POS and Kitchen Display System for food service operations, replacing paper tickets and reducing kitchen communication delays.</li>
+                    <li>Used Supabase Realtime WebSocket channels with bi-directional state sync to broadcast order and ticket status updates across kitchen stations in under 500ms.</li>
+                    <li>Designed kitchen alert chimes, high-contrast touch ticket layouts, automated table routing, and optimistic UI updates with offline/reconnection recovery.</li>
+                    <li>Modeled normalized PostgreSQL schemas for order states, line items, and station routing to prevent order collisions during peak hours.</li>
                 </ul>
             </div>
 
@@ -372,11 +389,12 @@
                     <div class="item-title">Ghana Emergency Response &amp; Dispatch Telemetry System</div>
                     <div class="item-period">Live Deployment</div>
                 </div>
-                <div class="item-subtitle">TypeScript, JavaScript, Python, PostgreSQL, Geolocation API, WebRTC</div>
+                <div class="item-subtitle">TypeScript · JavaScript · Python · PostgreSQL · Geolocation API · WebRTC</div>
                 <ul class="bullets">
-                    <li><strong>Rapid Dispatch:</strong> Developed emergency response web platform enabling instant geolocation-tagged SOS distress calls for rapid dispatch of emergency services across Ghana.</li>
-                    <li><strong>Live Telemetry:</strong> Engineered live coordinate tracking with interactive mapping and instantaneous voice-note transmission, decreasing dispatch response coordination times significantly.</li>
-                    <li><strong>Fault Tolerance:</strong> Integrated high-reliability fallback queues to persist emergency alerts under intermittent cellular connectivity.</li>
+                    <li>Built an emergency web application for geolocation-tagged SOS requests to support rapid dispatch coordination across Ghana.</li>
+                    <li>Implemented live coordinate telemetry with interactive mapping, geofencing, and voice-note transmission to speed up incident verification.</li>
+                    <li>Added client-side offline queues and service-worker persistence to preserve distress requests during intermittent connectivity.</li>
+                    <li>Built an administrative dispatch console for triaging incidents by severity, viewing nearby units, and updating live call status.</li>
                 </ul>
             </div>
 
@@ -385,109 +403,99 @@
                     <div class="item-title">Patron Housing Access Control &amp; Visitor Management</div>
                     <div class="item-period">Production Solution</div>
                 </div>
-                <div class="item-subtitle">Python, PostgreSQL, Docker, QR Cryptographic Passports, Modern CSS</div>
+                <div class="item-subtitle">Python · PostgreSQL · Docker · Cryptographic QR Codes · Modern CSS</div>
                 <ul class="bullets">
-                    <li><strong>Access Security:</strong> Engineered automated residential access control platform handling digital visitor issuance, security gate check-ins, and cryptographic QR code validation.</li>
-                    <li><strong>Infrastructure:</strong> Built administrative dashboards with real-time entry/exit logs, resident authorization workflows, and Dockerized deployment on Render cloud infrastructure.</li>
-                </ul>
-            </div>
-
-            <div class="item">
-                <div class="item-header">
-                    <div class="item-title">BizConnect Technologies Enterprise Corporate Platform</div>
-                    <div class="item-period">Client Production</div>
-                </div>
-                <div class="item-subtitle">Modern JavaScript, Accessible UI/UX, Performance Optimization, REST APIs</div>
-                <ul class="bullets">
-                    <li><strong>Zero-Bloat Engineering:</strong> Engineered enterprise corporate web platform for BizConnect Technologies featuring zero external bundle bloat, responsive layouts, and a perfect 100% Core Web Vitals audit.</li>
-                    <li><strong>Enterprise Accessibility:</strong> Implemented WCAG 2.1 AA accessible typography, keyboard navigation, and semantic HTML structure to guarantee universal accessibility across enterprise clients.</li>
-                    <li><strong>Lead Generation:</strong> Built modular component system and client-side contact inquiries API integration, driving a 35% increase in verified inbound enterprise leads.</li>
-                </ul>
-            </div>
-
-            <div class="item">
-                <div class="item-header">
-                    <div class="item-title">Kelrose Tours Travel &amp; Itinerary Booking Platform</div>
-                    <div class="item-period">Client Production</div>
-                </div>
-                <div class="item-subtitle">Dynamic JavaScript, Modern Responsive CSS, Tour Catalog, SEO Architecture | <a href="https://kojowallet01.github.io/kelrose/" target="_blank" rel="noopener">kojowallet01.github.io/kelrose</a></div>
-                <ul class="bullets">
-                    <li><strong>Tour Architecture:</strong> Designed and deployed full-featured travel platform for Kelrose Tours featuring interactive tour itinerary catalogs, curated destination guides, and conversion funnels.</li>
-                    <li><strong>Mobile Optimization:</strong> Optimized responsive layout, image delivery pipelines, and metadata indexing, enhancing organic search visibility and mobile user retention.</li>
-                    <li><strong>Booking Operations:</strong> Configured automated inquiry workflows routing customer booking requests directly to operations staff via encrypted communication channels.</li>
+                    <li>Built a residential access-control platform for digital visitor passes, gate check-ins, and cryptographic QR code validation.</li>
+                    <li>Created an administrative dashboard with real-time entry/exit logs and resident authorization workflows; deployed with Docker on Render.</li>
+                    <li>Implemented automated pass revocation and single-use visitor passes to prevent credential sharing.</li>
                 </ul>
             </div>
         </section>
 
         <section>
-            <h2>Engineering Experience &amp; Milestones</h2>
+            <h2>CLIENT &amp; COMMERCIAL PLATFORMS</h2>
+
+            <div class="item">
+                <div class="item-header">
+                    <div class="item-title">BizConnect Technologies — Enterprise Portal</div>
+                    <div class="item-period">Client Production</div>
+                </div>
+                <div class="item-subtitle">Modern JavaScript · Accessible UI/UX · REST APIs</div>
+                <ul class="bullets">
+                    <li>Built a corporate web platform with a lean codebase, responsive layouts, and a 100% Core Web Vitals score.</li>
+                    <li>Implemented WCAG 2.1 AA accessible typography, keyboard navigation, and semantic HTML structure.</li>
+                    <li>Built a modular component system and contact-inquiry API integration that drove a 35% increase in verified inbound leads.</li>
+                </ul>
+            </div>
+
+            <div class="item page-break">
+                <div class="item-header">
+                    <div class="item-title">Kelrose Tours — Travel &amp; Itinerary Booking Platform</div>
+                    <div class="item-period">Client Production</div>
+                </div>
+                <div class="item-subtitle">JavaScript · Responsive CSS · SEO</div>
+                <ul class="bullets">
+                    <li>Designed and deployed a travel platform with interactive tour itinerary catalogs and destination guides.</li>
+                    <li>Optimized responsive layout, image delivery, and metadata indexing to improve search visibility and mobile retention.</li>
+                    <li>Configured automated inquiry workflows routing customer booking requests to operations staff.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>PROFESSIONAL EXPERIENCE</h2>
 
             <div class="item">
                 <div class="item-header">
                     <div class="item-title">Full-Stack Systems Engineer &amp; Independent Developer</div>
-                    <div class="item-period">2024 — Present</div>
+                    <div class="item-period">2024 – Present</div>
                 </div>
-                <div class="item-subtitle">Autonomous Software Engineering &amp; Client Solutions — Accra, Ghana</div>
+                <div class="item-subtitle">Independent / Client Engagements — Accra, Ghana</div>
                 <ul class="bullets">
-                    <li><strong>Full-Lifecycle Engineering:</strong> Lead the complete software engineering lifecycle for high-stakes web systems across hospitality, municipal emergency, and commercial enterprise sectors.</li>
-                    <li><strong>Database &amp; Cloud Delivery:</strong> Architect robust database models in PostgreSQL, implement secure role-based access control, write asynchronous event-driven services, and manage continuous deployment on cloud infrastructure.</li>
-                    <li><strong>Client Excellence:</strong> Maintain a 5.0 Google client satisfaction rating across commercial engagements through meticulous requirement scoping, disciplined delivery timelines, and proactive communication.</li>
+                    <li>Lead full-lifecycle engineering for web systems across hospitality, municipal emergency, and commercial sectors.</li>
+                    <li>Design PostgreSQL database models, implement role-based access control, and build asynchronous, event-driven services deployed on cloud infrastructure.</li>
+                    <li>Maintain a 5.0 client satisfaction rating (Google Reviews) through careful requirement scoping and disciplined delivery.</li>
                 </ul>
             </div>
 
             <div class="item">
                 <div class="item-header">
                     <div class="item-title">Commercial Web Engineer &amp; Client Consultant</div>
-                    <div class="item-period">2023 — 2024</div>
+                    <div class="item-period">2023 – 2024</div>
                 </div>
                 <div class="item-subtitle">Freelance &amp; Contract Engagements</div>
                 <ul class="bullets">
-                    <li><strong>Frontend Modernization:</strong> Consulted with SME business owners to modernize legacy web applications, migrate outdated static pages to interactive modern stacks, and optimize conversion funnels.</li>
-                    <li><strong>Performance Engineering:</strong> Implemented performance audits and asset optimization techniques, reducing page load times by over 40% and achieving sub-second Largest Contentful Paint (LCP).</li>
-                    <li><strong>Cross-Device Resilience:</strong> Delivered responsive UI components adhering strictly to mobile-first standards, testing across multi-device viewports and legacy browser runtimes.</li>
+                    <li>Modernized legacy web applications for SME clients, migrating static pages to interactive stacks and improving conversion funnels.</li>
+                    <li>Ran performance audits and asset optimization that cut page load times by over 40%, achieving sub-second Largest Contentful Paint.</li>
+                    <li>Delivered responsive, mobile-first UI components tested across devices and legacy browsers.</li>
                 </ul>
             </div>
 
             <div class="item">
                 <div class="item-header">
-                    <div class="item-title">Autonomous Software Apprenticeship &amp; Foundations</div>
-                    <div class="item-period">2022 — 2023</div>
+                    <div class="item-title">Software Engineering Apprenticeship &amp; Foundations</div>
+                    <div class="item-period">2022 – 2023</div>
                 </div>
-                <div class="item-subtitle">Intensive Systems Engineering &amp; Deliberate Practice (1,500+ Hours)</div>
+                <div class="item-subtitle">Self-Directed Study — 1,500+ hours</div>
                 <ul class="bullets">
-                    <li><strong>Theoretical Foundations:</strong> Completed rigorous self-directed engineering curriculum covering algorithmic complexity, asynchronous concurrency, network protocols (HTTP/REST/WebSockets), and relational database modeling.</li>
-                    <li><strong>AI-Augmented Engineering:</strong> Pioneered AI-augmented development workflows, pairing with cutting-edge agentic tools to prototype, refactor, and rigorously stress-test codebases at accelerated speed.</li>
-                    <li><strong>Community &amp; Practice:</strong> Authored reproducible open-source web components and modular architectural blueprints shared with local developer communities in Accra.</li>
+                    <li>Completed a self-directed curriculum covering algorithms, asynchronous concurrency, network protocols (HTTP/REST/WebSockets), and relational database design.</li>
+                    <li>Adopted AI-assisted development workflows to prototype, refactor, and test code more efficiently.</li>
+                    <li>Built and shared open-source web components with local developer communities in Accra.</li>
                 </ul>
             </div>
         </section>
 
         <section>
-            <h2>Education, Certifications &amp; Continuous Mastery</h2>
+            <h2>EDUCATION &amp; CONTINUOUS LEARNING</h2>
+
             <div class="item">
                 <div class="item-header">
-                    <div class="item-title">Software Engineering &amp; Systems Development</div>
-                    <div class="item-period">Accra, Ghana</div>
+                    <div class="item-title">Software Engineering &amp; Systems Development — Accra, Ghana</div>
                 </div>
-                <div class="item-subtitle">Autonomous Curricula, Open-Source Contributions &amp; Professional Practice</div>
+                <div class="item-subtitle">Self-directed curricula, open-source contributions, and professional practice</div>
                 <ul class="bullets">
-                    <li>Continuous professional mastery in Next.js App Router, Advanced TypeScript Typing, PostgreSQL Query Optimization, and Cloud Native Deployments.</li>
-                    <li>Committed to perpetual engineering refinement through daily deliberate practice, code review, architectural post-mortems, and modern web specifications.</li>
+                    <li>Ongoing study in Next.js App Router, advanced TypeScript, PostgreSQL query optimization, and cloud-native deployment.</li>
                 </ul>
-            </div>
-        </section>
-
-        <section>
-            <h2>Core Engineering Methodologies &amp; Architectural Standards</h2>
-            <div class="skills-grid">
-                <div class="skill-category">Resilient System Design:</div>
-                <div class="skill-list">Offline-first thinking, fallback event queues, optimistic UI state updates, and graceful network degradation.</div>
-
-                <div class="skill-category">Performance Discipline:</div>
-                <div class="skill-list">Zero unnecessary dependencies, sub-second LCP, minimal DOM reflows, and rigorous Core Web Vitals adherence.</div>
-
-                <div class="skill-category">Code Quality &amp; Delivery:</div>
-                <div class="skill-list">Modular domain separation, type safety with TypeScript, clean git branching workflows, and rapid automated deployments.</div>
             </div>
         </section>
     </div>
