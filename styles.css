@@ -847,6 +847,67 @@ html.light .theme-toggle .fa-moon {
     padding-top: 60px;
 }
 
+/* Project Discipline Filter Bar */
+.project-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 28px 0 36px;
+}
+
+.filter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filter-pill:hover {
+    color: var(--text-primary);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.filter-pill.active {
+    background: var(--accent);
+    color: #002b36;
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(42, 161, 152, 0.3);
+}
+
+.filter-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.15);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.filter-pill.active .filter-count {
+    background: rgba(0, 43, 54, 0.25);
+    color: #002b36;
+}
+
+.project-card.is-hidden,
+.work-category-heading.is-hidden {
+    display: none !important;
+}
+
 .work-category-heading {
     display: flex;
     align-items: center;
@@ -2617,20 +2678,94 @@ html.light .project-feature-list {
     margin-bottom: 24px;
 }
 
-.case-study-img-wrap {
-    width: 100%;
+/* Case Study Multi-Tab Media Gallery */
+.case-study-media-container {
     border-radius: 12px;
-    overflow: hidden;
     border: 1px solid var(--border-subtle);
+    background: #021a20;
+    overflow: hidden;
     margin-bottom: 32px;
-    background: #042129;
 }
 
-.case-study-img-wrap img {
+.case-study-media-tabs {
+    display: flex;
+    background: rgba(0, 43, 54, 0.6);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 6px 12px;
+    gap: 8px;
+    overflow-x: auto;
+}
+
+.media-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.media-tab:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.media-tab.active {
+    color: var(--accent);
+    background: rgba(42, 161, 152, 0.14);
+    border-color: rgba(42, 161, 152, 0.35);
+}
+
+.media-stage {
+    position: relative;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.media-view {
+    width: 100%;
+    animation: fadeInMedia 0.3s ease forwards;
+}
+
+.media-view.is-hidden {
+    display: none !important;
+}
+
+.media-view img {
     width: 100%;
     max-height: 420px;
     object-fit: cover;
     object-position: top center;
+    display: block;
+}
+
+.media-diagram-stage {
+    padding: 24px;
+    width: 100%;
+    box-sizing: border-box;
+    background: radial-gradient(circle at center, rgba(42, 161, 152, 0.08) 0%, rgba(2, 26, 32, 0.95) 75%);
+}
+
+.diagram-svg {
+    width: 100%;
+    height: auto;
+    max-height: 380px;
+    display: block;
+    margin: 0 auto;
+}
+
+@keyframes fadeInMedia {
+    from { opacity: 0; transform: scale(0.99); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 /* 7-Part Section Blocks */

@@ -331,9 +331,11 @@ if (isHoverDevice && !window.matchMedia('(prefers-reduced-motion: reduce)').matc
     });
 }
 
-// 6. Project Category Filtering
-const filterButtons = document.querySelectorAll('.filter-btn');
+// 6. Project Discipline Filtering
+const filterButtons = document.querySelectorAll('.project-filter-bar .filter-pill, .filter-btn');
 const projectCards = document.querySelectorAll('.project-card');
+const featuredGroupHeader = document.querySelector('[data-group-header="featured"]');
+const secondaryGroupHeader = document.querySelector('[data-group-header="secondary"]');
 
 filterButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -345,6 +347,8 @@ filterButtons.forEach(button => {
         button.setAttribute('aria-selected', 'true');
 
         const filter = button.dataset.filter;
+        let featuredCount = 0;
+        let secondaryCount = 0;
 
         projectCards.forEach(card => {
             const categories = (card.dataset.category || '').split(' ');
@@ -353,12 +357,25 @@ filterButtons.forEach(button => {
             if (isMatch) {
                 card.classList.remove('is-hidden');
                 card.style.animation = 'none';
-                card.offsetHeight; // trigger reflow
-                card.style.animation = 'fadeInCard 0.35s ease forwards';
+                void card.offsetHeight; // trigger reflow
+                card.style.animation = 'fadeInMedia 0.35s ease forwards';
+                if (card.closest('.featured-projects-grid')) featuredCount++;
+                if (card.closest('.secondary-projects-grid')) secondaryCount++;
             } else {
                 card.classList.add('is-hidden');
             }
         });
+
+        if (featuredGroupHeader) {
+            featuredGroupHeader.classList.toggle('is-hidden', featuredCount === 0);
+        }
+        if (secondaryGroupHeader) {
+            secondaryGroupHeader.classList.toggle('is-hidden', secondaryCount === 0);
+        }
+
+        if (typeof trackAnalyticsEvent === 'function') {
+            trackAnalyticsEvent('filter_projects', { filter: filter });
+        }
     });
 });
 
@@ -515,6 +532,193 @@ const projectModal = document.getElementById('projectModal');
 const projectModalClose = document.getElementById('projectModalClose');
 const projectModalContent = document.getElementById('projectModalContent');
 
+function getArchitectureSvg(projectId, data) {
+    const archConfigs = {
+        sweetbite: {
+            node1: { title: 'POS Terminal', sub: 'Next.js 14 · Cashier UI', color: '#2aa198' },
+            node2: { title: 'State Engine', sub: 'Zustand · Offline Queue', color: '#0ea5e9' },
+            node3: { title: 'Supabase Realtime', sub: 'WebSocket Cluster', color: '#67e8f9' },
+            node4: { title: 'PostgreSQL DB', sub: 'RLS · Order Ledger', color: '#38bdf8' },
+            node5: { title: 'Kitchen KDS', sub: 'Audio Alert · Station UI', color: '#2aa198' },
+            labelA: 'Order Event',
+            labelB: 'Bi-Dir Sync',
+            labelC: 'Persist ACID',
+            labelD: '<500ms Push'
+        },
+        emergency: {
+            node1: { title: 'Citizen Client', sub: 'Mobile Web PWA', color: '#ef4444' },
+            node2: { title: 'Telemetry Buffer', sub: 'GPS · WebRTC Audio', color: '#f59e0b' },
+            node3: { title: 'Dispatch API', sub: 'Python / FastAPI Bridge', color: '#0ea5e9' },
+            node4: { title: 'PostgreSQL DB', sub: 'PostGIS Incident Data', color: '#38bdf8' },
+            node5: { title: 'Command Console', sub: 'First Responder Triage', color: '#2aa198' },
+            labelA: 'One-Tap SOS',
+            labelB: 'Telemetry Stream',
+            labelC: 'Spatial Query',
+            labelD: 'Unit Dispatch'
+        },
+        patron: {
+            node1: { title: 'Resident Portal', sub: 'Visitor Management Web', color: '#10b981' },
+            node2: { title: 'Crypto Issuer', sub: 'HMAC-SHA256 Token', color: '#2aa198' },
+            node3: { title: 'Docker Platform', sub: 'Python Core / Render', color: '#0ea5e9' },
+            node4: { title: 'Access Ledger', sub: 'PostgreSQL Audit DB', color: '#38bdf8' },
+            node5: { title: 'Security Gate', sub: 'Camera Terminal Scanner', color: '#10b981' },
+            labelA: 'Pass Request',
+            labelB: 'Signed QR',
+            labelC: 'Audit Write',
+            labelD: 'Realtime Verify'
+        },
+        bizconnect: {
+            node1: { title: 'Enterprise Client', sub: 'Cross-Device Browser', color: '#0ea5e9' },
+            node2: { title: 'Edge UI Layer', sub: '0 KB Bloat · Pure CSS', color: '#2aa198' },
+            node3: { title: 'Inquiry Gateway', sub: 'TypeScript REST API', color: '#38bdf8' },
+            node4: { title: 'Corporate Routing', sub: 'Encrypted Lead Ingest', color: '#67e8f9' },
+            node5: { title: 'Sales Ops CRM', sub: 'Instant Webhook Delivery', color: '#0ea5e9' },
+            labelA: 'Page Request',
+            labelB: '100% CWV Score',
+            labelC: 'Lead Payload',
+            labelD: 'Direct Dispatch'
+        },
+        kelrose: {
+            node1: { title: 'Travel Explorer', sub: 'Tourist Mobile Client', color: '#f59e0b' },
+            node2: { title: 'Dynamic Catalog', sub: 'Itinerary Experience', color: '#2aa198' },
+            node3: { title: 'Booking Engine', sub: 'Reservation Logic', color: '#0ea5e9' },
+            node4: { title: 'Lead Storage', sub: 'Session & Inquiry DB', color: '#38bdf8' },
+            node5: { title: 'Tour Operations', sub: 'Direct Concierge Desk', color: '#10b981' },
+            labelA: 'Browse Tours',
+            labelB: 'Dynamic Route',
+            labelC: 'Reserve Ticket',
+            labelD: 'Operator Handshake'
+        }
+    };
+    const c = archConfigs[projectId] || archConfigs.sweetbite;
+    return `
+    <svg class="diagram-svg" viewBox="0 0 760 210" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="System Architecture Diagram for ${data.title}">
+        <defs>
+            <linearGradient id="boxGrad-${projectId}" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#073642" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#002b36" stop-opacity="0.98"/>
+            </linearGradient>
+            <marker id="arr-${projectId}" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 8 5 L 0 9 z" fill="#2aa198"/>
+            </marker>
+        </defs>
+
+        <path d="M 125 105 L 175 105" stroke="#2aa198" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-${projectId})"/>
+        <path d="M 295 105 L 345 105" stroke="#2aa198" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-${projectId})"/>
+        <path d="M 465 105 L 515 105" stroke="#2aa198" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-${projectId})"/>
+        <path d="M 635 105 L 675 105" stroke="#2aa198" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-${projectId})"/>
+
+        <text x="150" y="94" fill="#67e8f9" font-size="9.5" font-family="monospace" text-anchor="middle">${c.labelA}</text>
+        <text x="320" y="94" fill="#67e8f9" font-size="9.5" font-family="monospace" text-anchor="middle">${c.labelB}</text>
+        <text x="490" y="94" fill="#67e8f9" font-size="9.5" font-family="monospace" text-anchor="middle">${c.labelC}</text>
+        <text x="655" y="94" fill="#67e8f9" font-size="9.5" font-family="monospace" text-anchor="middle">${c.labelD}</text>
+
+        <g transform="translate(10, 55)">
+            <rect width="115" height="95" rx="8" fill="url(#boxGrad-${projectId})" stroke="${c.node1.color}" stroke-width="1.5"/>
+            <circle cx="18" cy="22" r="5" fill="${c.node1.color}"/>
+            <text x="18" y="48" fill="#ffffff" font-size="11" font-weight="bold" font-family="system-ui, sans-serif">${c.node1.title}</text>
+            <text x="18" y="70" fill="#94a3b8" font-size="8.8" font-family="system-ui, sans-serif">${c.node1.sub}</text>
+        </g>
+
+        <g transform="translate(180, 55)">
+            <rect width="115" height="95" rx="8" fill="url(#boxGrad-${projectId})" stroke="${c.node2.color}" stroke-width="1.5"/>
+            <circle cx="18" cy="22" r="5" fill="${c.node2.color}"/>
+            <text x="18" y="48" fill="#ffffff" font-size="11" font-weight="bold" font-family="system-ui, sans-serif">${c.node2.title}</text>
+            <text x="18" y="70" fill="#94a3b8" font-size="8.8" font-family="system-ui, sans-serif">${c.node2.sub}</text>
+        </g>
+
+        <g transform="translate(350, 55)">
+            <rect width="115" height="95" rx="8" fill="url(#boxGrad-${projectId})" stroke="${c.node3.color}" stroke-width="2"/>
+            <circle cx="18" cy="22" r="5" fill="${c.node3.color}"/>
+            <text x="18" y="48" fill="#ffffff" font-size="11" font-weight="bold" font-family="system-ui, sans-serif">${c.node3.title}</text>
+            <text x="18" y="70" fill="#67e8f9" font-size="8.8" font-family="system-ui, sans-serif">${c.node3.sub}</text>
+        </g>
+
+        <g transform="translate(520, 55)">
+            <rect width="115" height="95" rx="8" fill="url(#boxGrad-${projectId})" stroke="${c.node4.color}" stroke-width="1.5"/>
+            <circle cx="18" cy="22" r="5" fill="${c.node4.color}"/>
+            <text x="18" y="48" fill="#ffffff" font-size="11" font-weight="bold" font-family="system-ui, sans-serif">${c.node4.title}</text>
+            <text x="18" y="70" fill="#94a3b8" font-size="8.8" font-family="system-ui, sans-serif">${c.node4.sub}</text>
+        </g>
+
+        <g transform="translate(640, 55)">
+            <rect width="110" height="95" rx="8" fill="url(#boxGrad-${projectId})" stroke="${c.node5.color}" stroke-width="1.5"/>
+            <circle cx="18" cy="22" r="5" fill="${c.node5.color}"/>
+            <text x="14" y="48" fill="#ffffff" font-size="10.5" font-weight="bold" font-family="system-ui, sans-serif">${c.node5.title}</text>
+            <text x="14" y="70" fill="#94a3b8" font-size="8.5" font-family="system-ui, sans-serif">${c.node5.sub}</text>
+        </g>
+    </svg>
+    `;
+}
+
+function getPipelineSvg(projectId, data) {
+    const pipelines = {
+        sweetbite: [
+            { step: '01', title: 'Order Ingest', desc: 'Front-desk POS tap triggers client state' },
+            { step: '02', title: 'Optimistic UI', desc: 'Instant local UI response before network' },
+            { step: '03', title: 'WS Broadcast', desc: 'Supabase Realtime channels (<500ms)' },
+            { step: '04', title: 'PostgreSQL Write', desc: 'ACID transaction with line items ledger' },
+            { step: '05', title: 'Kitchen Dispatch', desc: 'KDS station audio alert & order display' }
+        ],
+        emergency: [
+            { step: '01', title: 'SOS Trigger', desc: 'Citizen one-tap distress button clicked' },
+            { step: '02', title: 'Telemetry Grab', desc: 'High-accuracy GPS + audio voice note buffer' },
+            { step: '03', title: 'Offline Guard', desc: 'Client IndexedDB queue preserves data on drop' },
+            { step: '04', title: 'FastAPI Dispatch', desc: 'Secure payload routing to emergency ops' },
+            { step: '05', title: 'Operator Alert', desc: 'Dispatcher live map pinpoint & voice playback' }
+        ],
+        patron: [
+            { step: '01', title: 'Pass Request', desc: 'Resident generates guest access in portal' },
+            { step: '02', title: 'HMAC Signing', desc: 'Cryptographic single-use token embedded in QR' },
+            { step: '03', title: 'Gate Scan', desc: 'Physical gatekeeper scanner decodes QR code' },
+            { step: '04', title: 'DB Verification', desc: 'Server validates expiration & entry privileges' },
+            { step: '05', title: 'Gate Unlock', desc: 'Barrier arm opened & audit entry logged' }
+        ],
+        bizconnect: [
+            { step: '01', title: 'User Request', desc: 'Enterprise client accesses domain URL' },
+            { step: '02', title: 'Edge Delivery', desc: 'Sub-second lightweight payload, 0 bloat' },
+            { step: '03', title: 'Service Explorer', desc: 'Client navigates enterprise capabilities' },
+            { step: '04', title: 'Quote Ingest', desc: 'Structured quotation payload submitted' },
+            { step: '05', title: 'Lead Routing', desc: 'Direct corporate email & CRM transmission' }
+        ],
+        kelrose: [
+            { step: '01', title: 'Tour Browse', desc: 'Traveler explores curated Ghana regions' },
+            { step: '02', title: 'Itinerary Select', desc: 'Dynamic schedule and package selected' },
+            { step: '03', title: 'Reservation', desc: 'Booking form captures dates and guest count' },
+            { step: '04', title: 'Lead Capture', desc: 'Secure session validated and queued' },
+            { step: '05', title: 'Ops Handshake', desc: 'Direct WhatsApp and email lead dispatch' }
+        ]
+    };
+
+    const pipe = pipelines[projectId] || pipelines.sweetbite;
+    
+    return `
+    <svg class="diagram-svg" viewBox="0 0 760 170" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Event and Data Pipeline for ${data.title}">
+        <defs>
+            <linearGradient id="pipeStepGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#073642" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#002b36" stop-opacity="0.98"/>
+            </linearGradient>
+        </defs>
+
+        <line x1="50" y1="85" x2="710" y2="85" stroke="#0e7490" stroke-width="2" stroke-dasharray="6 4"/>
+
+        ${pipe.map((item, idx) => {
+            const x = 15 + idx * 148;
+            return `
+            <g transform="translate(${x}, 35)">
+                <rect width="138" height="98" rx="8" fill="url(#pipeStepGrad)" stroke="#2aa198" stroke-width="1.2"/>
+                <rect x="10" y="10" width="26" height="20" rx="4" fill="rgba(42, 161, 152, 0.25)"/>
+                <text x="23" y="24" fill="#2aa198" font-size="11" font-weight="bold" font-family="monospace" text-anchor="middle">${item.step}</text>
+                <text x="12" y="50" fill="#ffffff" font-size="10.8" font-weight="bold" font-family="system-ui, sans-serif">${item.title}</text>
+                <text x="12" y="70" fill="#94a3b8" font-size="8.4" font-family="system-ui, sans-serif">${item.desc}</text>
+            </g>
+            `;
+        }).join('')}
+    </svg>
+    `;
+}
+
 function openProjectModal(projectId) {
     const data = PROJECT_CASE_STUDIES[projectId];
     if (!data || !projectModal || !projectModalContent) return;
@@ -545,8 +749,37 @@ function openProjectModal(projectId) {
         <h2 class="case-study-title" id="modalTitle">${data.title}</h2>
         <p class="case-study-tagline">${data.tagline}</p>
         
-        <div class="case-study-img-wrap">
-            <img src="${data.image}" alt="${data.title} System Interface Preview" loading="eager">
+        <!-- Multi-Tab Case Study Media Gallery -->
+        <div class="case-study-media-container" id="modalMediaGallery">
+            <div class="case-study-media-tabs" role="tablist" aria-label="Media preview tabs">
+                <button type="button" class="media-tab active" data-tab="ui" role="tab" aria-selected="true">
+                    <i class="fas fa-desktop" aria-hidden="true"></i> System Interface
+                </button>
+                <button type="button" class="media-tab" data-tab="arch" role="tab" aria-selected="false">
+                    <i class="fas fa-network-wired" aria-hidden="true"></i> Architecture Topology
+                </button>
+                <button type="button" class="media-tab" data-tab="pipeline" role="tab" aria-selected="false">
+                    <i class="fas fa-stream" aria-hidden="true"></i> Event &amp; Data Pipeline
+                </button>
+            </div>
+            <div class="media-stage">
+                <!-- View 1: UI Preview -->
+                <div class="media-view" data-view="ui">
+                    <img src="${data.image}" alt="${data.title} System Interface Preview" loading="eager">
+                </div>
+                <!-- View 2: Architecture Topology Diagram -->
+                <div class="media-view is-hidden" data-view="arch">
+                    <div class="media-diagram-stage">
+                        ${getArchitectureSvg(projectId, data)}
+                    </div>
+                </div>
+                <!-- View 3: Data Pipeline Diagram -->
+                <div class="media-view is-hidden" data-view="pipeline">
+                    <div class="media-diagram-stage">
+                        ${getPipelineSvg(projectId, data)}
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- 01 The Problem -->
@@ -646,6 +879,34 @@ function openProjectModal(projectId) {
             <button type="button" class="btn btn-outline" id="modalDismissBtn">Close Case Study</button>
         </div>
     `;
+
+    // Multi-tab media switching
+    const mediaTabs = projectModalContent.querySelectorAll('.media-tab');
+    const mediaViews = projectModalContent.querySelectorAll('.media-view');
+
+    mediaTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetView = tab.getAttribute('data-tab');
+            mediaTabs.forEach(t => {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+
+            mediaViews.forEach(v => {
+                if (v.getAttribute('data-view') === targetView) {
+                    v.classList.remove('is-hidden');
+                } else {
+                    v.classList.add('is-hidden');
+                }
+            });
+
+            if (typeof trackAnalyticsEvent === 'function') {
+                trackAnalyticsEvent('modal_tab_click', { project: projectId, tab: targetView });
+            }
+        });
+    });
 
     projectModal.classList.add('open');
     projectModal.setAttribute('aria-hidden', 'false');
@@ -900,3 +1161,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// ==========================================================================
+// 11. Progressive Web App (PWA) Offline Service Worker Registration
+// ==========================================================================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then((registration) => {
+                console.log('PWA Service Worker registered with scope:', registration.scope);
+            })
+            .catch((error) => {
+                console.warn('PWA Service Worker registration skipped/failed:', error);
+            });
+    });
+}
+

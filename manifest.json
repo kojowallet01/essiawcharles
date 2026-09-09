@@ -1,0 +1,25 @@
+{
+  "name": "Charles Essiaw — Full-Stack Software Engineer",
+  "short_name": "Charles Essiaw",
+  "description": "Full-stack software engineer building real-time applications, business systems, and digital products.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#002b36",
+  "theme_color": "#002b36",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "profile.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "profile.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

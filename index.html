@@ -31,6 +31,11 @@
     <meta name="twitter:image:alt" content="Charles Essiaw — Full-Stack Software Engineer Social Preview Card">
 
     <link rel="icon" type="image/jpeg" href="profile.jpg">
+    <link rel="apple-touch-icon" href="profile.jpg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Charles Essiaw">
     <link rel="stylesheet" href="styles.css">
 
     <!-- Schema.org JSON-LD Structured Data for Search Engines -->
@@ -253,8 +258,27 @@
                     </p>
                 </div>
 
+                <!-- Interactive Project Discipline Filter -->
+                <div class="project-filter-bar fade-in" role="tablist" aria-label="Filter projects by discipline">
+                    <button type="button" class="filter-pill active" data-filter="all" role="tab" aria-selected="true">
+                        <i class="fas fa-layer-group" aria-hidden="true"></i> All Systems <span class="filter-count">5</span>
+                    </button>
+                    <button type="button" class="filter-pill" data-filter="realtime" role="tab" aria-selected="false">
+                        <i class="fas fa-bolt" aria-hidden="true"></i> Real-Time &amp; Telemetry <span class="filter-count">2</span>
+                    </button>
+                    <button type="button" class="filter-pill" data-filter="fullstack" role="tab" aria-selected="false">
+                        <i class="fas fa-server" aria-hidden="true"></i> Full-Stack Systems <span class="filter-count">3</span>
+                    </button>
+                    <button type="button" class="filter-pill" data-filter="security" role="tab" aria-selected="false">
+                        <i class="fas fa-shield-halved" aria-hidden="true"></i> Security &amp; Access <span class="filter-count">1</span>
+                    </button>
+                    <button type="button" class="filter-pill" data-filter="commercial" role="tab" aria-selected="false">
+                        <i class="fas fa-briefcase" aria-hidden="true"></i> Commercial Web <span class="filter-count">2</span>
+                    </button>
+                </div>
+
                 <!-- Featured Systems Header -->
-                <div class="work-category-heading fade-in">
+                <div class="work-category-heading fade-in" data-group-header="featured">
                     <span class="category-indicator"></span>
                     <h3>Featured Production Systems</h3>
                 </div>
@@ -262,7 +286,7 @@
                 <div class="featured-projects-grid">
 
                     <!-- 1. Sweetbite Food POS & KDS -->
-                    <article class="project-card featured fade-in" data-project-id="sweetbite">
+                    <article class="project-card featured fade-in" data-project-id="sweetbite" data-category="realtime fullstack">
                         <div class="project-media-col">
                             <div class="project-browser-frame">
                                 <div class="browser-header">
@@ -324,7 +348,7 @@
                     </article>
 
                     <!-- 2. Emergency Response System -->
-                    <article class="project-card featured fade-in" data-project-id="emergency">
+                    <article class="project-card featured fade-in" data-project-id="emergency" data-category="realtime fullstack">
                         <div class="project-media-col">
                             <div class="project-browser-frame">
                                 <div class="browser-header">
@@ -390,7 +414,7 @@
                     </article>
 
                     <!-- 3. Patron Housing Access Control -->
-                    <article class="project-card featured fade-in" data-project-id="patron">
+                    <article class="project-card featured fade-in" data-project-id="patron" data-category="security fullstack">
                         <div class="project-media-col">
                             <div class="project-browser-frame">
                                 <div class="browser-header">
@@ -458,7 +482,7 @@
                 </div>
 
                 <!-- More Commercial Work -->
-                <div class="work-category-heading secondary fade-in">
+                <div class="work-category-heading secondary fade-in" data-group-header="secondary">
                     <span class="category-indicator secondary"></span>
                     <h3>More Client Work &amp; Web Applications</h3>
                 </div>
@@ -466,7 +490,7 @@
                 <div class="secondary-projects-grid">
 
                     <!-- 4. BizConnect Website -->
-                    <article class="project-card compact fade-in" data-project-id="bizconnect">
+                    <article class="project-card compact fade-in" data-project-id="bizconnect" data-category="commercial">
                         <div class="compact-preview-wrap">
                             <div class="compact-browser-dots" aria-hidden="true">
                                 <span class="dot dot-red"></span>
@@ -513,7 +537,7 @@
                     </article>
 
                     <!-- 5. Kelrose Tours -->
-                    <article class="project-card compact fade-in" data-project-id="kelrose">
+                    <article class="project-card compact fade-in" data-project-id="kelrose" data-category="commercial">
                         <div class="compact-preview-wrap">
                             <div class="compact-browser-dots" aria-hidden="true">
                                 <span class="dot dot-red"></span>
