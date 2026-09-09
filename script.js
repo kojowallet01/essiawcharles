@@ -523,7 +523,7 @@ const PROJECT_CASE_STUDIES = {
         outcome: 'Provides a clean, engaging digital experience for domestic and international travelers, generating clear qualified inquiries for custom tour itineraries.',
         roles: ['Full-Stack Development', 'UI/UX Design', 'Content Strategy', 'Responsive Engineering'],
         roleDetail: 'Curated Ghanaian tourism data, designed the visual aesthetic, implemented the interactive package components, and published the platform codebase.',
-        demo: null,
+        demo: 'https://kojowallet01.github.io/kelrose/',
         github: 'https://github.com/kojowallet01/kelrose'
     }
 };

@@ -238,7 +238,7 @@ def build_pdf():
     )
     pdf.ln(1.8)
 
-    pdf.item_header("Kelrose Tours Travel & Itinerary Booking Platform", "Dynamic JavaScript, Modern Responsive CSS, Tour Catalog, SEO Architecture", "Client Production")
+    pdf.item_header("Kelrose Tours Travel & Itinerary Booking Platform", "Dynamic JavaScript, Modern Responsive CSS, Tour Catalog | kojowallet01.github.io/kelrose", "Client Production")
     pdf.bullet(
         "Designed and deployed full-featured travel platform for Kelrose Tours featuring interactive tour itinerary catalogs, curated destination guides, and conversion funnels.",
         "Tour Architecture:"
