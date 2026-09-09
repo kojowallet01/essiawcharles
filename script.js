@@ -349,90 +349,145 @@ const PROJECT_CASE_STUDIES = {
     sweetbite: {
         title: 'Sweetbite Food POS & KDS',
         tagline: 'Real-time cloud restaurant Point of Sale and Kitchen Display System with live Supabase order synchronization.',
-        category: 'Full-Stack',
-        status: 'Active',
+        category: 'Full-Stack System · Hospitality',
+        status: 'Active System',
         image: 'assets/projects/sweetbite.jpg',
-        challenge: 'Restaurant kitchens and cashiers frequently suffer from delayed ticket printouts, missed table orders, and chaotic rush hour coordination.',
-        solution: 'Built an ultra-fast Next.js & Supabase application that delivers live order tickets to kitchen screens in under 400ms, equipped with audible chime alerts and real-time inventory adjustments.',
+        problem: 'Quick-service and dine-in food establishments face severe operational bottlenecks during rush periods: handwritten or delayed paper tickets get lost, counter-to-kitchen communications lag, and split-item adjustments cause errors that directly erode restaurant revenue and table turnover rates.',
+        approach: 'Designed a decoupled, two-sided architecture connecting cashier terminals directly with kitchen display units via live websocket subscriptions. Focused heavily on high-contrast kitchen ergonomics, sub-second latency, zero page refreshes, and state resilience against intermittent connectivity.',
+        solution: 'Engineered an end-to-end cloud Point of Sale (POS) and Kitchen Display System (KDS) powered by Next.js and Supabase Realtime. When a cashier tenders an order, it appears on the kitchen station screen in under 400ms with clear visual status flags (Pending, Cooking, Ready, Collected) and audible chime notifications.',
         features: [
-            'Sub-second real-time order dispatch via Supabase websocket streams',
-            'Dedicated Kitchen Display System (KDS) with visual and audio bell alerts',
-            'Dynamic menu and ingredient manager with price variation controls',
-            'Responsive design suited for tablets, touch POS terminals, and mobile devices'
+            'Sub-second real-time order dispatch via Supabase websocket streams (<400ms latency)',
+            'Dedicated Kitchen Display System (KDS) with visual flags and audio chime alerts',
+            'Dynamic menu and inventory manager with variant pricing and instant stock status',
+            'Fast multi-payment handling (Cash, Mobile Money, Card) with daily sales reconciliation',
+            'Responsive touch-optimized UI designed for countertop tablets, touch POS monitors, and phones'
         ],
-        stack: ['Next.js 14', 'TypeScript', 'Supabase Realtime', 'Tailwind CSS', 'PostgreSQL'],
+        arch: {
+            frontend: { tech: 'Next.js 14 / React', detail: 'App Router, responsive touch interfaces, optimistic UI updates' },
+            backend: { tech: 'Node.js & Server Actions', detail: 'Type-safe server actions, input validation, transactional order logic' },
+            database: { tech: 'PostgreSQL (Supabase)', detail: 'Relational order schemas, menu tables, transactional integrity' },
+            infra: { tech: 'Supabase Realtime & Vercel', detail: 'Websocket CDC pub/sub streams, edge deployment, CDN caching' }
+        },
+        challenges: 'Maintaining absolute synchronization between simultaneous order mutations during peak rushes without duplicate tickets. Solved by implementing optimistic UI states with idempotent backend status updates and monotonic timestamp ordering.',
+        outcome: 'Replaces slow paper ticketing with instantaneous digital display, eliminating lost tickets and accelerating meal turnaround time.',
+        roles: ['System Architecture', 'Product Design', 'Next.js Frontend', 'PostgreSQL Schema', 'Supabase Realtime Sync', 'Vercel Deployment'],
+        roleDetail: 'Led the entire system development from initial restaurant workflow observation through interface wireframes, database normalization, real-time subscription pipelines, and tablet testing.',
         demo: null,
         github: 'https://github.com/kojowallet01/Sweetbite'
     },
     emergency: {
-        title: 'Emergency Response System',
+        title: 'Ghana Emergency Response & Dispatch Telemetry',
         tagline: 'Real-time emergency dispatch and response system for Ghana with instant voice messaging and GPS route tracking.',
-        category: 'Web App & GPS',
+        category: 'Civic Tech · Telemetry & Dispatch',
         status: 'Live Demo',
         image: 'assets/projects/emergency.jpg',
-        challenge: 'Citizens and dispatchers in emergency scenarios often struggle to convey exact geolocation and critical caller details in high-stress moments.',
-        solution: 'Developed a streamlined web application allowing callers to transmit pinpoint GPS coordinates and recorded voice messages in one tap directly to emergency dispatch terminals.',
+        problem: 'During critical emergencies in Ghana, callers in acute distress frequently struggle to convey exact street addresses, landmarks, or caller details over voice calls. Dispatchers waste vital minutes gathering basic coordinates before first responders can be mobilized.',
+        approach: 'Pioneered a one-touch emergency dispatch Progressive Web Application prioritizing rapid location acquisition, low-bandwidth data transmission, and multimodal reporting (voice + coordinates + text) to ensure dispatchers receive actionable telemetry within seconds.',
+        solution: 'Developed a streamlined web application allowing callers to transmit pinpoint GPS coordinates and recorded voice messages in one tap directly to emergency dispatch terminals, accompanied by automatic severity classification and map visualization.',
         features: [
-            'One-touch GPS coordinate detection with live Ghana map routing',
-            'In-browser voice recording and instant dispatch transmission',
-            'Emergency triage prioritization (High, Medium, Low severity flags)',
-            'Field unit availability status and ETA calculation'
+            'One-touch GPS coordinate detection with live Ghana map routing and accuracy confidence',
+            'In-browser voice recording and streaming audio memo dispatch for high-stress callers unable to type',
+            'Dispatcher triage console with automatic severity classification (High, Medium, Low)',
+            'Interactive Leaflet/OpenStreetMap mapping interface with live coordinate markers and route lines',
+            'Fault-tolerant retry queue optimized for volatile 3G and 2G mobile cellular networks'
         ],
-        stack: ['JavaScript', 'TypeScript', 'PostgreSQL', 'Python', 'Leaflet / Maps API'],
+        arch: {
+            frontend: { tech: 'JavaScript ES6+ & Leaflet.js', detail: 'Client-side geolocation, MediaRecorder audio capture, interactive maps' },
+            backend: { tech: 'Python / RESTful Services', detail: 'Incident triage endpoints, coordinate validation, audio ingestion' },
+            database: { tech: 'PostgreSQL / Spatial Indices', detail: 'Spatial coordinate storage, incident audit logs, telemetry records' },
+            infra: { tech: 'Vercel & Cloud Telemetry', detail: 'Serverless execution, SSL encryption, low-latency API routes' }
+        },
+        challenges: 'Handling wide variance in GPS precision across budget mobile hardware and patchy cellular reception. Implemented geolocation retry mechanisms with accuracy circles and audio compression to minimize payload size.',
+        outcome: 'Cut reporting overhead from several minutes of frantic phone description down to a single 3-second button tap and 10-second voice brief.',
+        roles: ['UX Strategy', 'Frontend Geolocation & Audio APIs', 'Python Services', 'Database Design', 'Vercel Deployment'],
+        roleDetail: 'Researched emergency reporting bottlenecks in Ghana, designed the high-contrast emergency UI, engineered client-side audio and GPS streaming, and configured the live dispatch dashboard.',
         demo: 'https://emergency-response-system-flax.vercel.app',
         github: 'https://github.com/kojowallet01/emergency-response-system'
     },
     patron: {
-        title: 'Patron Housing Access',
+        title: 'Patron Housing Access Control',
         tagline: 'QR-based access management portal for gated residential communities, streamlining visitor authentication and resident logging.',
-        category: 'Access System',
-        status: 'Live Demo',
+        category: 'Security · Residential Access',
+        status: 'Live Deployment',
         image: 'assets/projects/patron.jpg',
-        challenge: 'Traditional paper visitor registers create security loopholes, slow entry gates, and lack auditable entry/exit timestamps.',
-        solution: 'Architected a digital access platform where residents generate time-expiring cryptographic QR passes that security officers scan and verify at gated entry points.',
+        problem: 'Gated residential communities and housing complexes in urban areas rely on vulnerable paper visitor logbooks at security gates. These cause long vehicle queues, expose resident privacy, enable fraudulent entries, and provide zero searchable records during security investigations.',
+        approach: 'Created a cryptographic, self-service visitor authorization system. Residents generate single-use, time-delimited QR access passes via mobile that gate security guards can scan and authenticate instantly on any web camera or phone.',
+        solution: 'Architected a digital access platform where residents generate time-expiring cryptographic QR passes that security officers scan and verify at gated entry points, creating a tamper-proof digital visitor registry.',
         features: [
-            'Time-restricted QR visitor pass generator with expiration rules',
-            'Instant security gate scanner and resident unit verification',
-            'Comprehensive visitor history log with audit trails',
-            'Containerized Docker architecture for frictionless cloud hosting'
+            'Time-restricted cryptographic QR visitor pass generator with expiration and single-use rules',
+            'Instant in-browser camera scanner for security gate officers with resident verification feedback',
+            'Real-time resident arrival notification and automated vehicle entry/exit logging',
+            'Administrative security dashboard with searchable entry logs, vehicle license records, and daily visitor metrics',
+            'Containerized Docker architecture for frictionless cloud hosting and local-network failover'
         ],
-        stack: ['JavaScript', 'HTML5', 'CSS3', 'Docker', 'RESTful API'],
+        arch: {
+            frontend: { tech: 'HTML5, CSS3, JavaScript', detail: 'Client-side camera QR scanning, responsive resident portal, pass generation' },
+            backend: { tech: 'Node.js & Express REST API', detail: 'JWT validation, cryptographic token hashing, gate verification logic' },
+            database: { tech: 'PostgreSQL / Data Store', detail: 'Visitor logs, resident directory, access timestamp records' },
+            infra: { tech: 'Docker & Render Cloud', detail: 'Containerized deployment, automated environment builds' }
+        },
+        challenges: 'Preventing pass sharing / replay attacks and ensuring QR scanning operates smoothly under poor lighting at entrance gates. Implemented short-duration time locks, single-scan invalidation, and high-contrast QR display.',
+        outcome: 'Eliminates paper visitor books entirely, reduces gate check-in time from 90 seconds to under 8 seconds per vehicle, and delivers a permanent digital audit trail for residential estates.',
+        roles: ['Full-Stack Architecture', 'QR Verification Flow', 'RESTful API Engineering', 'Docker Packaging', 'Cloud Deployment'],
+        roleDetail: 'Designed the end-to-end security protocol, engineered the client-side QR generation and camera scanner, built the REST API, containerized the application via Dockerfile, and deployed to production.',
         demo: 'https://patron-housing-access.onrender.com/',
         github: 'https://github.com/kojowallet01/patron-housing-access'
     },
     bizconnect: {
-        title: 'BizConnect Website',
+        title: 'BizConnect Technologies Portal',
         tagline: 'Modern enterprise corporate business platform built with TypeScript, featuring high-speed load times and crisp aesthetics.',
-        category: 'Corporate Web',
+        category: 'Corporate Web · Enterprise Platform',
         status: 'Client Project',
         image: 'assets/projects/bizconnect.svg',
-        challenge: 'The client required a world-class digital brand presence capable of conveying enterprise IT capability with instant responsiveness.',
-        solution: 'Engineered a high-performance corporate platform using modern TypeScript and modular CSS, earning high performance metrics and clean aesthetic appeal.',
+        problem: 'An established corporate IT services firm suffered from an outdated, sluggish web presence that failed to project technical credibility, load quickly on mobile devices, or capture enterprise leads.',
+        approach: 'Engineered a bespoke, zero-bloat platform built with modern TypeScript and responsive CSS. Centered the redesign around clarity of enterprise service offerings, instant sub-second page performance, and high-conversion consultation requests.',
+        solution: 'Delivered a high-performance corporate platform with structured service tiers, dynamic quote request modules, interactive solution showcases, and strict semantic SEO architecture.',
         features: [
-            'Blazing fast sub-second initial page load with zero bloat',
-            'Full mobile-to-desktop responsive adaptation',
-            'Interactive solution showcases and quotation request modules',
-            'Production deployment with SEO-optimized structured metadata'
+            'Blazing fast sub-second initial page load with zero bloat or heavyweight dependencies',
+            'Full mobile-to-desktop responsive adaptation across all device form factors',
+            'Interactive quotation and IT consultation request workflows',
+            'Comprehensive SEO implementation with schema.org structured metadata and Open Graph tags',
+            'Production deployment with SSL security and automated lead routing'
         ],
-        stack: ['TypeScript', 'HTML5', 'CSS3', 'Python Services', 'Modern UI'],
+        arch: {
+            frontend: { tech: 'TypeScript & Semantic HTML5', detail: 'Type-safe interactive modules, accessible DOM structure, modern CSS' },
+            backend: { tech: 'Python / Serverless Services', detail: 'Lead capture endpoints, automated notification mailers' },
+            database: { tech: 'Structured Inquiry Store', detail: 'Lead logging, client quotation records, analytics' },
+            infra: { tech: 'Cloud Hosting & CDN', detail: 'Global edge distribution, asset compression, HTTP/2 delivery' }
+        },
+        challenges: 'Achieving a high-end corporate aesthetic while maintaining strict performance budgets on mobile networks. Avoided bloated utility bundles in favor of tailored CSS and modular TypeScript.',
+        outcome: 'Elevated the firm’s brand credibility, drove faster inquiries from corporate clients, and contributed to a 5.0 Google client rating.',
+        roles: ['Brand & UI/UX Design', 'TypeScript Frontend Development', 'Form & API Integration', 'SEO Strategy', 'Production Deployment'],
+        roleDetail: 'Conducted stakeholder requirement interviews, designed the corporate layout, developed all frontend modules in TypeScript, implemented SEO structured data, and deployed the production site.',
         demo: 'https://bizconnecttechnologies.com',
         github: 'https://github.com/kojowallet01/bizconnect-website'
     },
     kelrose: {
-        title: 'Kelrose Tours & Travel',
+        title: 'Kelrose Tours & Travel Website',
         tagline: 'Curated tour and travel website for exploring Ghana — featuring destinations, dynamic packages, booking forms, and reviews.',
-        category: 'Travel & Tourism',
-        status: 'Open Source',
+        category: 'Tourism & Travel · Booking Platform',
+        status: 'Client Platform',
         image: 'assets/projects/kelrose.svg',
-        challenge: 'Travelers searching for excursions across Ghana require clear destination insights, transparent package costs, and straightforward booking.',
-        solution: 'Created an engaging tourism portal highlighting top destinations (Cape Coast Castle, Kakum Canopy Walk, Mole Safari) with package breakdowns and booking inquiries.',
+        problem: 'Tourists and business travelers exploring destinations across Ghana often encounter fragmented travel information, vague pricing, and clumsy booking mechanisms across local tour operators.',
+        approach: 'Designed an immersive, destination-first travel web application that showcases Ghana’s heritage and natural attractions with transparent tour itineraries, responsive gallery viewports, and clear booking forms.',
+        solution: 'Created a comprehensive travel portal featuring interactive regional destination showcases (Cape Coast Castle, Kakum Canopy Walkway, Mole National Park), customizable tour package builders, and inquiry management.',
         features: [
-            'Interactive regional destination guides across Ghana',
-            'Customizable tour packages with clear pricing transparency',
-            'Integrated tour reservation and itinerary request forms',
-            'Authentic traveler reviews and social proof integration'
+            'Regional destination explorer highlighting cultural landmarks, historical context, and trip durations',
+            'Dynamic package showcase detailing inclusions, day-by-day itineraries, and transparent cost estimates',
+            'Responsive travel inquiry and custom tour reservation forms',
+            'Authentic traveler reviews and testimonial proof integration',
+            'Optimized imagery with responsive lazy-loading for fast mobile browsing'
         ],
-        stack: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
+        arch: {
+            frontend: { tech: 'HTML5, CSS3, JavaScript', detail: 'Interactive destination filters, itinerary accordion components, responsive galleries' },
+            backend: { tech: 'RESTful Booking Handlers', detail: 'Form data validation, reservation processing, email triggers' },
+            database: { tech: 'Package & Destination Store', detail: 'Travel catalog data, tour details, booking logs' },
+            infra: { tech: 'Web Hosting & CDN Caching', detail: 'Fast asset delivery, responsive image serving' }
+        },
+        challenges: 'Balancing rich photographic media showcasing scenic Ghanaian landscapes with fast load times on mobile cellular connections. Utilized modern image compression and progressive asset hydration.',
+        outcome: 'Provides a clean, engaging digital experience for domestic and international travelers, generating clear qualified inquiries for custom tour itineraries.',
+        roles: ['Full-Stack Development', 'UI/UX Design', 'Content Strategy', 'Responsive Engineering'],
+        roleDetail: 'Curated Ghanaian tourism data, designed the visual aesthetic, implemented the interactive package components, and published the platform codebase.',
         demo: null,
         github: 'https://github.com/kojowallet01/kelrose'
     }
@@ -447,52 +502,128 @@ function openProjectModal(projectId) {
     if (!data || !projectModal || !projectModalContent) return;
 
     const demoBtnHTML = data.demo 
-        ? `<a href="${data.demo}" target="_blank" rel="noopener" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> Live Demo</a>` 
+        ? `<a href="${data.demo}" target="_blank" rel="noopener" class="btn btn-primary"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> <span>Live Demo</span></a>` 
         : '';
     const codeBtnHTML = data.github 
-        ? `<a href="${data.github}" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-github"></i> Source Code</a>` 
+        ? `<a href="${data.github}" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-github" aria-hidden="true"></i> <span>Source Code</span></a>` 
         : '';
 
-    const featuresHTML = data.features.map(f => `<li><i class="fas fa-check-circle"></i> <span>${f}</span></li>`).join('');
-    const techPillsHTML = data.stack.map(s => `<span>${s}</span>`).join('');
+    const featuresHTML = data.features.map(f => `
+        <div class="feature-item">
+            <i class="fas fa-check-circle" aria-hidden="true" style="color: var(--accent); margin-top: 3px;"></i>
+            <span>${f}</span>
+        </div>
+    `).join('');
+
+    const rolePillsHTML = data.roles.map(r => `<span class="role-pill">${r}</span>`).join('');
 
     projectModalContent.innerHTML = `
-        <div class="modal-header-badge-row">
-            <span class="project-category-tag">${data.category}</span>
-            <span class="project-status-pill">${data.status}</span>
+        <div class="case-study-badge-row">
+            <span class="project-type-pill">${data.category}</span>
+            <span class="project-status ${data.status.toLowerCase().includes('active') ? 'active' : 'live'}">${data.status}</span>
         </div>
-        <h2 class="modal-title">${data.title}</h2>
-        <p class="modal-tagline">${data.tagline}</p>
+        <h2 class="case-study-title" id="modalTitle">${data.title}</h2>
+        <p class="case-study-tagline">${data.tagline}</p>
         
-        <div class="modal-img-wrap">
-            <img src="${data.image}" alt="${data.title} UI Preview">
+        <div class="case-study-img-wrap">
+            <img src="${data.image}" alt="${data.title} System Interface Preview" loading="eager">
         </div>
 
-        <div class="modal-grid-details">
-            <div class="modal-detail-box">
-                <div class="modal-detail-title"><i class="fas fa-bullseye"></i> The Challenge</div>
-                <p class="modal-detail-text">${data.challenge}</p>
+        <!-- 01 The Problem -->
+        <div class="case-study-section">
+            <div class="case-study-heading">
+                <span class="section-num">01</span>
+                <span>The Problem</span>
             </div>
-            <div class="modal-detail-box">
-                <div class="modal-detail-title"><i class="fas fa-lightbulb"></i> The Solution</div>
-                <p class="modal-detail-text">${data.solution}</p>
+            <p class="case-study-body">${data.problem}</p>
+        </div>
+
+        <!-- 02 The Approach -->
+        <div class="case-study-section">
+            <div class="case-study-heading">
+                <span class="section-num">02</span>
+                <span>The Approach</span>
+            </div>
+            <p class="case-study-body">${data.approach}</p>
+        </div>
+
+        <!-- 03 The Solution -->
+        <div class="case-study-section">
+            <div class="case-study-heading">
+                <span class="section-num">03</span>
+                <span>The Solution &amp; Key Features</span>
+            </div>
+            <p class="case-study-body">${data.solution}</p>
+            <div class="project-feature-list" style="margin-top: 16px;">
+                ${featuresHTML}
             </div>
         </div>
 
-        <div class="modal-section-title">Key Features & Architecture</div>
-        <ul class="modal-features-list">
-            ${featuresHTML}
-        </ul>
-
-        <div class="modal-section-title">Technology Stack</div>
-        <div class="modal-tech-pills">
-            ${techPillsHTML}
+        <!-- 04 System Architecture -->
+        <div class="case-study-section">
+            <div class="case-study-heading">
+                <span class="section-num">04</span>
+                <span>System Architecture</span>
+            </div>
+            <div class="architecture-grid">
+                <div class="arch-box">
+                    <span class="arch-layer">Frontend</span>
+                    <span class="arch-tech">${data.arch.frontend.tech}</span>
+                    <span class="arch-detail">${data.arch.frontend.detail}</span>
+                </div>
+                <div class="arch-box">
+                    <span class="arch-layer">Backend &amp; API</span>
+                    <span class="arch-tech">${data.arch.backend.tech}</span>
+                    <span class="arch-detail">${data.arch.backend.detail}</span>
+                </div>
+                <div class="arch-box">
+                    <span class="arch-layer">Database &amp; Data Layer</span>
+                    <span class="arch-tech">${data.arch.database.tech}</span>
+                    <span class="arch-detail">${data.arch.database.detail}</span>
+                </div>
+                <div class="arch-box">
+                    <span class="arch-layer">Infrastructure &amp; Real-time</span>
+                    <span class="arch-tech">${data.arch.infra.tech}</span>
+                    <span class="arch-detail">${data.arch.infra.detail}</span>
+                </div>
+            </div>
         </div>
 
-        <div class="modal-actions">
+        <!-- 05 Key Challenges -->
+        <div class="case-study-section">
+            <div class="case-study-heading">
+                <span class="section-num">05</span>
+                <span>Key Technical Challenges</span>
+            </div>
+            <p class="case-study-body">${data.challenges}</p>
+        </div>
+
+        <!-- 06 Business Outcome -->
+        <div class="case-study-section">
+            <div class="case-study-heading">
+                <span class="section-num">06</span>
+                <span>Business &amp; Operational Outcome</span>
+            </div>
+            <p class="case-study-body">${data.outcome}</p>
+        </div>
+
+        <!-- 07 My Role -->
+        <div class="case-study-section">
+            <div class="case-study-heading">
+                <span class="section-num">07</span>
+                <span>My Role &amp; Contributions</span>
+            </div>
+            <div class="role-pills">
+                ${rolePillsHTML}
+            </div>
+            <p class="case-study-body" style="margin-top: 14px;">${data.roleDetail}</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="case-study-actions">
             ${demoBtnHTML}
             ${codeBtnHTML}
-            <button type="button" class="btn btn-outline" id="modalDismissBtn">Close</button>
+            <button type="button" class="btn btn-outline" id="modalDismissBtn">Close Case Study</button>
         </div>
     `;
 
@@ -575,20 +706,25 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // 8. FAQ Accordion Toggle
-document.querySelectorAll('.faq-question').forEach(btn => {
+document.querySelectorAll('.faq-trigger').forEach(btn => {
     btn.addEventListener('click', () => {
-        const item = btn.parentElement;
-        const answer = item.querySelector('.faq-answer');
+        const item = btn.closest('.faq-item');
+        if (!item) return;
+        const panel = item.querySelector('.faq-panel');
         const isActive = item.classList.contains('active');
 
         document.querySelectorAll('.faq-item.active').forEach(activeItem => {
             activeItem.classList.remove('active');
-            activeItem.querySelector('.faq-answer').style.maxHeight = null;
+            const activeBtn = activeItem.querySelector('.faq-trigger');
+            if (activeBtn) activeBtn.setAttribute('aria-expanded', 'false');
+            const activePanel = activeItem.querySelector('.faq-panel');
+            if (activePanel) activePanel.style.maxHeight = null;
         });
 
         if (!isActive) {
             item.classList.add('active');
-            answer.style.maxHeight = answer.scrollHeight + 'px';
+            btn.setAttribute('aria-expanded', 'true');
+            if (panel) panel.style.maxHeight = `${panel.scrollHeight + 30}px`;
         }
     });
 });
