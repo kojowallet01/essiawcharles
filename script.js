@@ -12,6 +12,22 @@ const heroAvatarCard = document.getElementById('heroAvatarCard');
 const heroTypedRole = document.getElementById('heroTypedRole');
 const copyEmailBtn = document.getElementById('copyEmailBtn');
 
+// 0. Privacy-First Visitor Telemetry & Event Tracking (GoatCounter & Custom Events)
+function trackAnalyticsEvent(name, params = {}) {
+    try {
+        if (window.goatcounter && typeof window.goatcounter.count === 'function') {
+            window.goatcounter.count({
+                path: name,
+                title: params.title || name,
+                event: true,
+            });
+        }
+        window.dispatchEvent(new CustomEvent('portfolio:telemetry', { detail: { name, ...params } }));
+    } catch (err) {
+        // Fail-safe to avoid disrupting user experience
+    }
+}
+
 // 1. Scroll Progress Bar & Navbar Scroll State
 window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
@@ -87,7 +103,9 @@ function setTheme(theme) {
 
 themeToggle.addEventListener('click', () => {
     const isLight = document.documentElement.classList.contains('light');
-    setTheme(isLight ? 'dark' : 'light');
+    const newTheme = isLight ? 'dark' : 'light';
+    setTheme(newTheme);
+    trackAnalyticsEvent('theme_toggle', { title: 'Theme: ' + newTheme });
 });
 
 // 4. Interactive Ambient Canvas (Constellation Mesh) in Hero
@@ -501,6 +519,8 @@ function openProjectModal(projectId) {
     const data = PROJECT_CASE_STUDIES[projectId];
     if (!data || !projectModal || !projectModalContent) return;
 
+    trackAnalyticsEvent('view_case_study', { title: `Case Study: ${data.title}` });
+
     const demoBtnHTML = data.demo 
         ? `<a href="${data.demo}" target="_blank" rel="noopener" class="btn btn-primary"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> <span>Live Demo</span></a>` 
         : '';
@@ -799,6 +819,7 @@ if (contactForm && contactSubmitBtn) {
 
             if (data.success) {
                 showFormStatus('success', 'Thank you! Your message has been delivered to Charles. I will get back to you shortly.');
+                trackAnalyticsEvent('contact_form_submit', { title: 'Web3Forms Inquiry' });
                 contactForm.reset();
             } else {
                 throw new Error(data.message || 'Submission error');
@@ -808,6 +829,7 @@ if (contactForm && contactSubmitBtn) {
             const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
             const body = encodeURIComponent(`Hello Charles,\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n`);
             showFormStatus('error', 'Connecting to your email application to ensure message delivery...');
+            trackAnalyticsEvent('contact_form_mailto_fallback', { title: 'Mailto Fallback Inquiry' });
             setTimeout(() => {
                 window.location.href = `mailto:charlesessiawjnr@gmail.com?subject=${subject}&body=${body}`;
             }, 1200);
@@ -830,3 +852,51 @@ if (contactForm && contactSubmitBtn) {
         }
     }
 }
+
+// ==========================================================================
+// 10. High-Intent Telemetry Event Listeners (Recruiters & Clients)
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Track Resume Clicks & Downloads
+    document.querySelectorAll('a[href*="resume"], .btn-nav-resume').forEach(el => {
+        el.addEventListener('click', () => {
+            trackAnalyticsEvent('resume_interaction', { title: 'Resume PDF / View' });
+        });
+    });
+
+    // Track WhatsApp Direct Inquiries
+    document.querySelectorAll('a[href*="wa.me"]').forEach(el => {
+        el.addEventListener('click', () => {
+            trackAnalyticsEvent('contact_whatsapp', { title: 'WhatsApp Direct Chat' });
+        });
+    });
+
+    // Track Direct Email Inquiries
+    document.querySelectorAll('a[href^="mailto:"]').forEach(el => {
+        el.addEventListener('click', () => {
+            trackAnalyticsEvent('contact_email', { title: 'Direct Email Click' });
+        });
+    });
+
+    // Track Copy Email Button
+    if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', () => {
+            trackAnalyticsEvent('copy_email', { title: 'Email Address Copied' });
+        });
+    }
+
+    // Track Outbound Live Demos & GitHub Links
+    document.querySelectorAll('a[target="_blank"]').forEach(el => {
+        const href = el.getAttribute('href') || '';
+        if (href.includes('wa.me') || href.includes('resume')) return;
+        
+        el.addEventListener('click', () => {
+            const label = el.getAttribute('aria-label') || el.textContent.trim() || href;
+            if (href.includes('github.com')) {
+                trackAnalyticsEvent('github_outbound', { title: `GitHub: ${label}` });
+            } else {
+                trackAnalyticsEvent('live_demo_outbound', { title: `Live Demo: ${label}` });
+            }
+        });
+    });
+});
